@@ -1,0 +1,51 @@
+hospital_id,name,latitude,longitude,total_beds,available_beds,emergency_capacity,status
+1,Sunrise Hospital,17.409376,78.489963,209,162,49,active
+2,Global Emergency Hospital,17.488078,78.371104,54,53,45,active
+3,Metro Care Hospital,17.313299,78.565465,55,6,38,active
+4,Central Medical Center,17.401124,78.427511,313,48,9,active
+5,City Emergency Hospital,17.434708,78.412717,191,26,16,active
+6,Sunrise Hospital,17.327529,78.518463,124,82,19,active
+7,Central Medical Center,17.464862,78.376729,201,147,12,active
+8,Central Medical Center,17.409649,78.498624,495,76,35,active
+9,City Emergency Hospital,17.472041,78.394405,190,79,26,active
+10,Sunrise Hospital,17.311679,78.431153,329,175,16,active
+11,LifeCare Hospital,17.400249,78.577319,290,116,33,active
+12,Hyderabad General Hospital,17.362359,78.590371,370,338,28,active
+13,Sunrise Hospital,17.406162,78.380929,455,158,37,active
+14,LifeCare Hospital,17.284683,78.564948,332,316,20,active
+15,Metro Care Hospital,17.416941,78.523581,129,63,22,active
+16,LifeCare Hospital,17.364378,78.414224,107,79,45,active
+17,LifeCare Hospital,17.354609,78.567928,478,90,44,active
+18,Hyderabad General Hospital,17.500006,78.596612,82,44,20,active
+19,Apollo Emergency Center,17.497192,78.48631,93,22,40,active
+20,Sunrise Hospital,17.497526,78.526863,481,10,19,active
+21,Metro Care Hospital,17.465776,78.537378,348,259,48,active
+22,LifeCare Hospital,17.432717,78.494175,354,347,41,active
+23,Sunrise Hospital,17.482933,78.539212,398,349,9,active
+24,LifeCare Hospital,17.303939,78.562099,384,127,11,active
+25,Metro Care Hospital,17.440557,78.598113,432,74,49,active
+26,Hyderabad General Hospital,17.38133,78.533771,272,219,25,active
+27,Global Emergency Hospital,17.370468,78.568241,89,45,8,active
+28,Apollo Emergency Center,17.291113,78.422879,431,267,47,active
+29,Hyderabad General Hospital,17.461093,78.573878,471,349,30,active
+30,Global Emergency Hospital,17.313482,78.401812,201,56,35,active
+31,Central Medical Center,17.442013,78.432291,405,169,21,active
+32,Metro Care Hospital,17.376616,78.527414,264,157,38,active
+33,Global Emergency Hospital,17.462492,78.485774,469,344,38,active
+34,Sunrise Hospital,17.471967,78.562756,351,126,14,active
+35,Sunrise Hospital,17.4329,78.457811,147,46,23,active
+36,Sunrise Hospital,17.464,78.411635,336,85,14,active
+37,Sunrise Hospital,17.35318,78.563049,386,341,34,active
+38,Sunrise Hospital,17.305499,78.405031,343,19,39,active
+39,Central Medical Center,17.30594,78.551306,197,138,32,active
+40,Metro Care Hospital,17.318237,78.534541,280,182,5,active
+41,City Emergency Hospital,17.267631,78.549766,348,183,13,active
+42,Metro Care Hospital,17.503341,78.435266,146,143,6,active
+43,City Emergency Hospital,17.339647,78.442524,290,181,5,active
+44,Central Medical Center,17.401138,78.523059,160,73,50,active
+45,Global Emergency Hospital,17.338606,78.56495,474,294,38,active
+46,Metro Care Hospital,17.452115,78.436519,74,27,22,active
+47,LifeCare Hospital,17.485146,78.487215,253,224,26,active
+48,Hyderabad General Hospital,17.49068,78.453306,253,50,20,active
+49,Apollo Emergency Center,17.376196,78.588163,420,110,27,active
+50,LifeCare Hospital,17.440764,78.530932,458,295,33,active

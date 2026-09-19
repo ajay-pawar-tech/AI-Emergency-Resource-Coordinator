@@ -1,0 +1,13 @@
+.env
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.streamlit/secrets.toml
+*.log
+*.pkl
+README_backup.md
+!app/ml/models/demand_model.pkl
+!app/ml/models/severity_model.pkl
+.agents/

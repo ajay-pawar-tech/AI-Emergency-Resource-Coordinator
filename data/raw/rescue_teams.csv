@@ -1,0 +1,31 @@
+team_id,team_name,team_type,members,latitude,longitude,status
+1,Rescue Team 1,Disaster Response,9,17.502663,78.420896,busy
+2,Rescue Team 2,Disaster Response,10,17.456863,78.523752,available
+3,Rescue Team 3,Disaster Response,4,17.41002,78.437891,busy
+4,Rescue Team 4,Search and Rescue,14,17.368317,78.416929,available
+5,Rescue Team 5,Flood Rescue,15,17.503062,78.52771,busy
+6,Rescue Team 6,Fire Rescue,4,17.339586,78.584723,busy
+7,Rescue Team 7,Medical Rescue,7,17.382033,78.494047,busy
+8,Rescue Team 8,Search and Rescue,11,17.413187,78.578428,busy
+9,Rescue Team 9,Fire Rescue,7,17.474058,78.587309,busy
+10,Rescue Team 10,Search and Rescue,14,17.322098,78.572391,busy
+11,Rescue Team 11,Disaster Response,8,17.302071,78.427771,busy
+12,Rescue Team 12,Disaster Response,11,17.298351,78.444295,available
+13,Rescue Team 13,Disaster Response,6,17.385159,78.604495,busy
+14,Rescue Team 14,Search and Rescue,10,17.332296,78.600026,busy
+15,Rescue Team 15,Search and Rescue,4,17.281087,78.388557,busy
+16,Rescue Team 16,Fire Rescue,7,17.407681,78.408561,busy
+17,Rescue Team 17,Disaster Response,10,17.33195,78.504856,available
+18,Rescue Team 18,Search and Rescue,7,17.301269,78.407537,busy
+19,Rescue Team 19,Disaster Response,8,17.402421,78.439937,busy
+20,Rescue Team 20,Search and Rescue,13,17.439286,78.433543,available
+21,Rescue Team 21,Medical Rescue,10,17.467385,78.423065,available
+22,Rescue Team 22,Disaster Response,12,17.355225,78.41591,busy
+23,Rescue Team 23,Disaster Response,4,17.40076,78.512372,busy
+24,Rescue Team 24,Disaster Response,15,17.319662,78.514788,available
+25,Rescue Team 25,Flood Rescue,7,17.304959,78.383959,available
+26,Rescue Team 26,Fire Rescue,5,17.392049,78.47284,busy
+27,Rescue Team 27,Flood Rescue,15,17.41085,78.473431,available
+28,Rescue Team 28,Medical Rescue,6,17.36754,78.549333,available
+29,Rescue Team 29,Flood Rescue,11,17.266018,78.389167,busy
+30,Rescue Team 30,Medical Rescue,4,17.44387,78.532708,busy

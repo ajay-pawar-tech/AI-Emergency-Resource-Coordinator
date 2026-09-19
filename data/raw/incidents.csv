@@ -1,0 +1,501 @@
+incident_id,incident_type,latitude,longitude,reported_victims,severity,weather_condition,response_time_minutes,status,created_at
+1,Fire,17.502241,78.387829,24,Medium,Cloudy,9,resolved,2026-07-02 04:40:15
+2,Road Accident,17.34078,78.374722,24,Medium,Cloudy,28,resolved,2026-07-04 23:11:51
+3,Road Accident,17.270988,78.597198,1,Low,Cloudy,46,active,2026-07-13 16:19:46
+4,Industrial Accident,17.492652,78.388367,17,Medium,Heavy Rain,56,in_progress,2026-02-27 14:23:25
+5,Road Accident,17.37364,78.389734,25,Medium,Rain,51,resolved,2026-06-26 03:11:44
+6,Building Collapse,17.320239,78.385838,22,Medium,Rain,22,resolved,2025-08-27 22:50:14
+7,Building Collapse,17.314562,78.589507,26,Medium,Storm,56,resolved,2026-06-04 15:12:08
+8,Fire,17.429567,78.405157,9,Medium,Storm,49,active,2026-05-22 20:40:10
+9,Industrial Accident,17.355751,78.559779,26,Medium,Storm,40,active,2025-12-09 10:40:20
+10,Industrial Accident,17.481689,78.3741,5,High,Rain,49,active,2025-10-22 17:16:50
+11,Industrial Accident,17.431894,78.51839,1,Low,Rain,27,in_progress,2025-10-16 10:14:54
+12,Industrial Accident,17.437658,78.478161,9,Critical,Clear,35,active,2025-09-03 22:26:19
+13,Medical Emergency,17.410811,78.588205,21,Critical,Heavy Rain,6,in_progress,2025-11-10 17:12:39
+14,Fire,17.461329,78.413886,27,Critical,Heavy Rain,23,resolved,2026-04-16 19:27:10
+15,Industrial Accident,17.486418,78.515185,27,Low,Storm,29,in_progress,2025-11-29 06:58:15
+16,Road Accident,17.328534,78.600287,24,Medium,Rain,49,active,2026-05-05 00:59:48
+17,Flood,17.484446,78.465506,2,Medium,Heavy Rain,39,in_progress,2025-11-20 13:39:33
+18,Road Accident,17.404816,78.584082,24,Medium,Storm,24,in_progress,2026-04-10 06:30:24
+19,Flood,17.446368,78.458811,8,High,Clear,14,in_progress,2025-09-12 07:14:13
+20,Medical Emergency,17.43793,78.374426,14,Medium,Rain,26,resolved,2026-03-27 14:12:24
+21,Building Collapse,17.451973,78.448837,18,High,Cloudy,43,resolved,2025-08-23 06:56:02
+22,Building Collapse,17.357417,78.391208,22,Low,Storm,28,active,2026-04-11 06:25:53
+23,Building Collapse,17.392049,78.484346,9,Medium,Cloudy,35,resolved,2026-04-04 02:56:06
+24,Fire,17.366341,78.489113,14,Medium,Storm,37,in_progress,2025-12-31 22:27:16
+25,Medical Emergency,17.351732,78.454999,10,Medium,Storm,17,in_progress,2026-05-09 09:54:24
+26,Road Accident,17.309459,78.376197,4,High,Rain,43,in_progress,2025-09-18 01:26:54
+27,Industrial Accident,17.49734,78.512869,4,Medium,Rain,49,active,2025-09-27 18:12:26
+28,Flood,17.441272,78.533739,12,Medium,Heavy Rain,40,active,2026-06-09 01:39:17
+29,Fire,17.474263,78.404957,7,Medium,Storm,24,in_progress,2026-06-01 03:03:16
+30,Flood,17.500309,78.531138,4,Low,Cloudy,11,in_progress,2025-12-22 03:16:17
+31,Road Accident,17.501853,78.39075,11,High,Heavy Rain,18,resolved,2025-10-21 12:35:07
+32,Fire,17.468862,78.539494,2,High,Rain,56,resolved,2025-11-22 10:46:43
+33,Fire,17.382989,78.446753,14,Medium,Heavy Rain,36,resolved,2025-09-08 12:43:10
+34,Flood,17.332969,78.52243,21,Medium,Clear,41,in_progress,2026-06-02 17:18:08
+35,Building Collapse,17.323923,78.524752,12,Low,Heavy Rain,36,in_progress,2025-12-06 04:35:01
+36,Flood,17.315146,78.526543,13,High,Cloudy,45,active,2026-06-27 11:23:52
+37,Flood,17.326182,78.575473,16,High,Storm,15,resolved,2025-10-03 10:50:01
+38,Medical Emergency,17.452811,78.418826,24,High,Cloudy,20,in_progress,2026-04-14 11:00:43
+39,Flood,17.499082,78.555205,1,Medium,Cloudy,15,resolved,2026-03-28 10:47:49
+40,Building Collapse,17.488643,78.566415,25,High,Cloudy,43,in_progress,2026-05-01 04:12:49
+41,Medical Emergency,17.31176,78.527981,26,Low,Rain,23,in_progress,2026-02-09 03:31:43
+42,Flood,17.455421,78.454419,9,Critical,Storm,45,in_progress,2026-07-24 21:51:39
+43,Road Accident,17.440404,78.390774,27,Medium,Storm,53,resolved,2026-01-09 13:47:19
+44,Medical Emergency,17.479455,78.407566,20,Medium,Rain,35,in_progress,2026-07-23 23:08:40
+45,Flood,17.43776,78.555821,26,High,Storm,18,active,2025-10-05 04:42:32
+46,Medical Emergency,17.265143,78.543197,26,High,Storm,52,resolved,2025-08-28 17:54:25
+47,Industrial Accident,17.394617,78.543741,3,Medium,Rain,39,resolved,2026-05-24 19:45:52
+48,Medical Emergency,17.361755,78.475864,11,High,Cloudy,32,in_progress,2026-07-20 15:49:13
+49,Flood,17.39967,78.472627,2,Low,Storm,5,resolved,2026-04-23 03:52:43
+50,Fire,17.490726,78.439956,12,Low,Clear,35,active,2025-09-27 18:02:55
+51,Building Collapse,17.496154,78.413435,17,High,Heavy Rain,32,resolved,2025-08-21 03:31:03
+52,Fire,17.484552,78.556492,10,Low,Storm,6,active,2026-01-09 03:33:57
+53,Road Accident,17.345265,78.585785,17,High,Cloudy,44,active,2025-11-29 22:37:27
+54,Road Accident,17.439577,78.476648,6,High,Rain,22,resolved,2026-01-14 14:13:58
+55,Medical Emergency,17.337161,78.456444,5,Low,Storm,16,resolved,2025-12-27 03:53:55
+56,Industrial Accident,17.485136,78.532742,4,Low,Cloudy,49,in_progress,2025-10-07 14:08:20
+57,Building Collapse,17.265521,78.584492,7,Medium,Cloudy,48,resolved,2025-11-18 01:18:16
+58,Road Accident,17.328238,78.583341,2,Critical,Cloudy,13,active,2025-11-30 11:41:17
+59,Fire,17.309982,78.451121,4,High,Cloudy,36,active,2025-08-20 20:27:18
+60,Industrial Accident,17.435204,78.503676,25,High,Rain,40,active,2026-04-14 11:47:32
+61,Flood,17.417568,78.547991,9,Low,Cloudy,43,in_progress,2026-02-25 03:47:59
+62,Industrial Accident,17.269787,78.600644,28,Low,Storm,57,resolved,2025-09-21 03:44:32
+63,Building Collapse,17.496199,78.504619,2,Low,Heavy Rain,26,in_progress,2026-04-04 02:51:29
+64,Medical Emergency,17.270429,78.599301,7,Medium,Heavy Rain,42,in_progress,2026-03-12 08:51:51
+65,Flood,17.275234,78.494036,28,Low,Storm,27,resolved,2025-12-09 15:32:34
+66,Building Collapse,17.501666,78.422452,1,High,Storm,45,active,2025-11-01 19:22:47
+67,Medical Emergency,17.38761,78.441473,23,Critical,Storm,32,active,2026-02-11 20:39:52
+68,Building Collapse,17.389714,78.448615,22,High,Storm,5,active,2025-12-08 13:10:45
+69,Flood,17.365327,78.513874,30,Medium,Heavy Rain,20,resolved,2026-05-22 13:50:26
+70,Medical Emergency,17.468391,78.477012,13,High,Storm,14,active,2026-07-23 19:47:36
+71,Building Collapse,17.293516,78.465158,15,Medium,Clear,27,active,2026-07-27 00:44:13
+72,Building Collapse,17.419323,78.468532,12,High,Rain,22,in_progress,2026-06-29 04:15:45
+73,Building Collapse,17.329921,78.403122,17,Low,Heavy Rain,27,in_progress,2025-10-08 18:45:45
+74,Road Accident,17.491388,78.568689,17,Medium,Cloudy,54,active,2026-04-21 05:40:28
+75,Building Collapse,17.453352,78.462316,21,Medium,Storm,32,in_progress,2025-10-10 17:21:26
+76,Industrial Accident,17.269219,78.464674,2,High,Rain,36,resolved,2025-11-18 12:22:06
+77,Medical Emergency,17.302432,78.522019,23,Critical,Heavy Rain,53,active,2026-01-30 17:41:35
+78,Flood,17.416701,78.54924,7,Critical,Heavy Rain,53,resolved,2026-04-12 22:30:35
+79,Building Collapse,17.503964,78.591652,11,Medium,Cloudy,25,in_progress,2026-05-04 08:20:51
+80,Fire,17.445814,78.404566,28,Low,Clear,51,active,2025-11-29 17:35:15
+81,Industrial Accident,17.467571,78.391567,6,High,Storm,6,active,2026-06-04 08:58:22
+82,Medical Emergency,17.366053,78.43065,11,Critical,Heavy Rain,7,in_progress,2026-06-23 07:22:20
+83,Fire,17.411485,78.390682,3,Low,Storm,58,active,2026-02-10 12:32:22
+84,Industrial Accident,17.296367,78.435009,12,High,Cloudy,59,resolved,2026-05-08 01:24:40
+85,Fire,17.26593,78.581844,30,High,Clear,21,in_progress,2025-11-19 05:23:36
+86,Industrial Accident,17.374614,78.407672,1,High,Cloudy,54,active,2026-05-14 22:55:10
+87,Flood,17.462963,78.452271,4,Low,Clear,54,resolved,2026-05-24 19:26:27
+88,Flood,17.378546,78.496814,25,Low,Clear,27,in_progress,2026-01-03 07:38:04
+89,Road Accident,17.287752,78.545609,22,High,Heavy Rain,13,in_progress,2026-01-24 01:43:04
+90,Flood,17.396033,78.492173,19,Medium,Storm,21,resolved,2026-07-03 21:14:48
+91,Fire,17.39297,78.549654,29,Medium,Heavy Rain,46,in_progress,2026-05-10 16:31:59
+92,Fire,17.4178,78.437631,26,High,Clear,28,active,2025-09-16 02:49:20
+93,Building Collapse,17.386979,78.462788,21,High,Rain,7,resolved,2026-02-10 21:34:45
+94,Fire,17.388299,78.529036,11,Medium,Storm,47,in_progress,2025-09-24 18:08:29
+95,Road Accident,17.343593,78.418201,23,Low,Storm,23,in_progress,2026-03-06 09:21:59
+96,Industrial Accident,17.439829,78.513616,5,High,Clear,34,in_progress,2026-06-17 08:32:21
+97,Road Accident,17.44735,78.378699,14,Medium,Heavy Rain,6,in_progress,2025-09-18 05:14:06
+98,Flood,17.442225,78.585903,25,Medium,Clear,55,in_progress,2025-09-24 15:10:03
+99,Fire,17.493991,78.51749,27,Low,Storm,7,resolved,2026-02-19 19:15:35
+100,Building Collapse,17.431517,78.600362,22,Medium,Heavy Rain,33,in_progress,2026-03-03 13:41:34
+101,Fire,17.326203,78.444168,23,High,Storm,23,active,2025-11-29 04:52:01
+102,Road Accident,17.384546,78.582858,12,Low,Clear,39,resolved,2026-04-12 22:04:13
+103,Building Collapse,17.302733,78.515938,27,Low,Clear,19,active,2026-03-18 17:00:51
+104,Flood,17.486101,78.403832,3,Low,Cloudy,46,resolved,2025-09-12 07:30:14
+105,Industrial Accident,17.399656,78.461335,18,Critical,Rain,44,in_progress,2025-11-29 23:58:43
+106,Industrial Accident,17.297531,78.567372,4,Medium,Rain,39,resolved,2026-04-04 15:30:08
+107,Flood,17.493142,78.516217,13,Critical,Clear,25,resolved,2026-02-11 15:38:30
+108,Medical Emergency,17.296519,78.42187,8,Critical,Storm,20,active,2026-01-19 08:36:54
+109,Road Accident,17.440015,78.601337,6,Low,Heavy Rain,30,resolved,2026-05-29 22:39:24
+110,Flood,17.414513,78.429254,11,Medium,Storm,12,in_progress,2026-03-30 23:36:44
+111,Industrial Accident,17.408621,78.59065,28,Medium,Clear,53,in_progress,2026-07-29 08:26:35
+112,Flood,17.366208,78.603193,20,Low,Storm,23,resolved,2026-03-06 06:13:26
+113,Fire,17.46212,78.429959,26,High,Clear,45,resolved,2025-12-21 14:03:56
+114,Building Collapse,17.485934,78.417816,20,Low,Clear,60,in_progress,2025-10-21 18:13:58
+115,Fire,17.344363,78.458139,5,Medium,Clear,23,in_progress,2025-10-19 22:07:58
+116,Industrial Accident,17.41327,78.489774,25,Low,Heavy Rain,27,active,2026-04-09 04:11:45
+117,Flood,17.364895,78.605611,11,Critical,Heavy Rain,29,active,2025-08-23 05:05:49
+118,Road Accident,17.414242,78.551821,15,High,Storm,48,resolved,2026-07-25 15:16:16
+119,Industrial Accident,17.377528,78.468696,3,Medium,Heavy Rain,22,resolved,2026-04-07 07:55:45
+120,Fire,17.322141,78.54638,30,Critical,Heavy Rain,18,resolved,2026-05-19 23:14:05
+121,Medical Emergency,17.488604,78.575683,4,Low,Rain,32,resolved,2026-04-14 05:19:42
+122,Fire,17.37416,78.57862,22,High,Cloudy,44,in_progress,2026-01-12 18:48:45
+123,Medical Emergency,17.282457,78.478118,23,High,Heavy Rain,15,in_progress,2026-02-13 07:39:55
+124,Road Accident,17.281606,78.389238,22,Medium,Clear,16,in_progress,2026-01-04 18:38:38
+125,Industrial Accident,17.295607,78.550088,2,Medium,Storm,19,active,2025-12-15 08:36:31
+126,Fire,17.449763,78.542369,11,High,Rain,39,resolved,2026-06-12 16:08:31
+127,Road Accident,17.331095,78.427739,26,Medium,Cloudy,59,in_progress,2025-10-11 18:55:52
+128,Flood,17.307038,78.552016,15,High,Cloudy,35,active,2025-12-19 18:45:49
+129,Flood,17.323339,78.41079,29,High,Heavy Rain,34,resolved,2026-07-25 16:44:48
+130,Road Accident,17.293934,78.498139,7,High,Heavy Rain,29,resolved,2025-08-31 00:19:32
+131,Medical Emergency,17.317593,78.50814,18,High,Cloudy,29,active,2025-11-25 21:31:02
+132,Flood,17.349478,78.442928,7,Medium,Rain,37,resolved,2026-05-13 12:13:40
+133,Fire,17.373538,78.590967,27,Medium,Rain,53,active,2025-08-24 23:56:12
+134,Building Collapse,17.422214,78.456172,7,Critical,Heavy Rain,51,active,2026-05-07 22:55:50
+135,Building Collapse,17.494229,78.600816,6,Medium,Rain,52,in_progress,2026-07-01 03:07:47
+136,Road Accident,17.289915,78.510711,13,Low,Storm,26,active,2025-08-29 16:50:01
+137,Medical Emergency,17.285002,78.430954,15,Low,Clear,14,resolved,2025-10-21 14:51:00
+138,Fire,17.37303,78.454131,29,Medium,Heavy Rain,50,resolved,2026-01-29 15:05:08
+139,Industrial Accident,17.477241,78.574313,23,Low,Rain,28,in_progress,2025-09-15 14:37:03
+140,Flood,17.292545,78.48677,28,Critical,Heavy Rain,24,resolved,2026-01-10 00:46:52
+141,Road Accident,17.504812,78.557961,22,Medium,Heavy Rain,57,active,2026-02-25 14:29:39
+142,Medical Emergency,17.383355,78.443558,11,Medium,Heavy Rain,59,resolved,2026-05-28 02:33:26
+143,Flood,17.501254,78.589616,8,High,Cloudy,17,in_progress,2026-01-22 01:55:32
+144,Industrial Accident,17.314741,78.409975,11,Medium,Heavy Rain,26,in_progress,2026-01-23 18:50:27
+145,Industrial Accident,17.418028,78.498247,24,Critical,Clear,42,active,2026-08-04 13:54:56
+146,Medical Emergency,17.393,78.408541,5,Medium,Storm,47,active,2025-11-28 22:01:13
+147,Road Accident,17.323577,78.468948,28,Low,Heavy Rain,58,resolved,2026-01-03 18:27:53
+148,Building Collapse,17.404092,78.557498,26,Low,Rain,37,active,2026-04-11 06:19:14
+149,Medical Emergency,17.4353,78.538823,22,High,Heavy Rain,51,active,2025-10-31 19:47:42
+150,Building Collapse,17.384604,78.533496,18,Medium,Rain,54,in_progress,2025-10-13 09:26:49
+151,Building Collapse,17.429741,78.455828,30,Medium,Clear,53,active,2026-08-08 11:00:02
+152,Medical Emergency,17.36526,78.460532,4,Low,Clear,43,resolved,2025-08-31 16:11:45
+153,Fire,17.329276,78.454486,21,High,Clear,5,in_progress,2026-02-05 06:57:26
+154,Building Collapse,17.409117,78.496021,5,Critical,Cloudy,36,resolved,2025-08-24 20:01:19
+155,Flood,17.467562,78.467496,26,High,Storm,10,in_progress,2026-08-13 15:34:26
+156,Fire,17.414478,78.509362,19,High,Storm,53,in_progress,2025-12-04 02:46:04
+157,Road Accident,17.479637,78.405852,7,Critical,Clear,28,resolved,2026-05-17 09:45:38
+158,Industrial Accident,17.485629,78.602241,9,Low,Heavy Rain,57,resolved,2026-04-30 06:45:59
+159,Industrial Accident,17.444293,78.422919,3,High,Clear,20,in_progress,2025-10-22 12:40:33
+160,Medical Emergency,17.315495,78.420729,3,Low,Clear,12,in_progress,2025-11-20 11:08:35
+161,Building Collapse,17.436622,78.449163,12,High,Clear,14,in_progress,2026-07-02 08:12:17
+162,Flood,17.369932,78.586913,15,High,Storm,27,resolved,2026-08-16 16:43:20
+163,Medical Emergency,17.309157,78.389253,26,Medium,Heavy Rain,59,in_progress,2025-12-05 13:46:08
+164,Fire,17.437948,78.392466,8,Critical,Rain,19,in_progress,2025-11-13 04:30:30
+165,Medical Emergency,17.364408,78.397554,30,Medium,Storm,25,in_progress,2026-07-19 03:08:40
+166,Building Collapse,17.323806,78.563592,8,Medium,Rain,34,in_progress,2025-09-14 01:05:02
+167,Medical Emergency,17.354756,78.526445,11,High,Rain,12,active,2025-10-24 07:59:03
+168,Industrial Accident,17.447644,78.469091,4,Medium,Clear,47,in_progress,2026-01-10 13:14:04
+169,Flood,17.455332,78.436344,30,Medium,Clear,12,in_progress,2025-12-25 07:49:36
+170,Industrial Accident,17.456612,78.403907,8,Medium,Heavy Rain,16,resolved,2026-02-27 19:09:24
+171,Building Collapse,17.351357,78.424626,1,Low,Rain,6,active,2025-12-02 09:08:59
+172,Fire,17.292291,78.605103,1,Medium,Heavy Rain,8,in_progress,2025-08-27 12:38:11
+173,Industrial Accident,17.406569,78.402266,30,Low,Rain,18,active,2026-06-03 19:24:31
+174,Building Collapse,17.455848,78.470637,2,Critical,Cloudy,52,active,2026-07-21 10:56:16
+175,Building Collapse,17.297349,78.376849,20,Low,Heavy Rain,8,resolved,2026-01-09 21:03:22
+176,Building Collapse,17.34804,78.540409,18,Medium,Heavy Rain,29,active,2025-12-17 09:31:08
+177,Fire,17.32452,78.385156,7,Medium,Heavy Rain,25,resolved,2025-12-28 16:42:05
+178,Industrial Accident,17.423183,78.523549,2,High,Cloudy,13,active,2025-09-18 19:58:32
+179,Building Collapse,17.269356,78.394632,23,High,Storm,24,in_progress,2026-04-16 10:12:51
+180,Road Accident,17.283892,78.524579,16,Medium,Cloudy,22,active,2026-03-03 23:58:49
+181,Fire,17.30154,78.451349,12,High,Rain,18,active,2026-07-01 15:54:03
+182,Industrial Accident,17.415149,78.483305,13,High,Storm,59,active,2025-12-17 13:27:49
+183,Industrial Accident,17.350047,78.564618,11,Low,Storm,11,active,2026-02-02 02:14:14
+184,Fire,17.447697,78.520087,18,Medium,Clear,47,in_progress,2026-07-09 18:10:56
+185,Building Collapse,17.487194,78.58385,18,High,Cloudy,27,in_progress,2026-04-03 23:54:59
+186,Industrial Accident,17.409867,78.425102,15,Low,Heavy Rain,8,resolved,2025-10-06 13:29:49
+187,Building Collapse,17.415142,78.426976,20,Medium,Heavy Rain,18,in_progress,2026-06-04 19:36:50
+188,Building Collapse,17.468781,78.521592,23,Critical,Rain,14,active,2026-03-20 20:39:44
+189,Road Accident,17.398896,78.530936,17,Low,Rain,58,active,2026-03-25 10:34:38
+190,Flood,17.359855,78.43514,4,Low,Clear,47,resolved,2025-10-09 14:37:40
+191,Fire,17.3852,78.39633,26,High,Clear,43,active,2026-05-18 18:14:25
+192,Medical Emergency,17.472193,78.453004,15,High,Heavy Rain,32,in_progress,2026-02-12 12:25:24
+193,Fire,17.427806,78.471606,23,High,Cloudy,27,active,2026-03-20 22:36:12
+194,Fire,17.325768,78.563019,22,Critical,Clear,54,active,2026-04-30 21:20:32
+195,Flood,17.37529,78.448693,21,Medium,Rain,46,in_progress,2025-11-30 02:16:26
+196,Medical Emergency,17.44686,78.48795,16,Medium,Rain,13,active,2026-02-28 06:02:14
+197,Industrial Accident,17.325986,78.515124,4,High,Cloudy,17,active,2026-07-29 14:53:01
+198,Road Accident,17.277251,78.432769,18,Low,Clear,52,active,2026-03-22 17:09:35
+199,Building Collapse,17.36889,78.396816,6,High,Heavy Rain,53,in_progress,2026-02-10 18:45:28
+200,Industrial Accident,17.396541,78.489167,22,Medium,Storm,43,resolved,2025-10-25 18:40:36
+201,Road Accident,17.294582,78.516032,30,Critical,Storm,30,resolved,2026-06-30 03:21:19
+202,Road Accident,17.322726,78.594312,20,Low,Storm,51,resolved,2025-08-19 17:53:37
+203,Flood,17.429449,78.602942,11,Medium,Heavy Rain,14,active,2025-09-22 03:37:22
+204,Road Accident,17.363026,78.410483,15,Critical,Storm,45,in_progress,2026-07-19 18:30:57
+205,Medical Emergency,17.49549,78.395435,1,Low,Cloudy,24,in_progress,2025-12-24 20:33:19
+206,Building Collapse,17.272523,78.394613,21,Medium,Cloudy,46,active,2026-05-15 01:55:35
+207,Building Collapse,17.309923,78.526041,19,Low,Cloudy,39,resolved,2025-11-28 19:41:10
+208,Industrial Accident,17.50285,78.606481,4,Low,Heavy Rain,48,in_progress,2026-07-08 13:46:36
+209,Road Accident,17.276554,78.486661,4,Low,Cloudy,44,resolved,2026-06-09 08:10:37
+210,Medical Emergency,17.487896,78.461348,29,Medium,Storm,60,active,2026-03-07 03:11:14
+211,Flood,17.32768,78.525253,23,High,Clear,59,active,2026-01-17 11:32:43
+212,Fire,17.28801,78.372671,25,Low,Rain,8,resolved,2026-03-12 14:03:12
+213,Industrial Accident,17.372004,78.452395,29,Medium,Heavy Rain,43,in_progress,2026-06-08 19:41:04
+214,Road Accident,17.412765,78.586775,18,Low,Cloudy,25,resolved,2025-12-08 19:50:34
+215,Flood,17.30673,78.471276,30,Medium,Rain,29,resolved,2025-09-14 17:22:42
+216,Flood,17.478891,78.567836,17,High,Storm,21,active,2025-11-04 18:10:24
+217,Road Accident,17.369598,78.387616,4,Medium,Clear,35,resolved,2025-12-13 04:52:50
+218,Medical Emergency,17.328278,78.457443,9,Medium,Rain,19,in_progress,2026-04-27 08:42:19
+219,Road Accident,17.370268,78.38099,27,High,Rain,26,resolved,2026-07-17 22:42:20
+220,Fire,17.420131,78.538579,7,Low,Cloudy,6,in_progress,2026-07-27 09:40:22
+221,Industrial Accident,17.290519,78.376687,29,Medium,Heavy Rain,36,resolved,2026-05-27 19:25:15
+222,Medical Emergency,17.30275,78.602216,14,Low,Cloudy,55,in_progress,2026-05-11 15:39:26
+223,Medical Emergency,17.390234,78.390823,23,Low,Cloudy,46,in_progress,2025-10-02 07:53:25
+224,Industrial Accident,17.455754,78.572981,24,Medium,Rain,9,resolved,2026-06-10 12:16:47
+225,Medical Emergency,17.481588,78.49801,25,High,Cloudy,29,resolved,2026-01-07 17:40:40
+226,Industrial Accident,17.328149,78.457916,13,Low,Rain,27,active,2026-08-17 00:16:46
+227,Flood,17.372751,78.485878,9,Critical,Cloudy,39,active,2025-12-07 10:35:37
+228,Flood,17.460602,78.495579,16,Critical,Cloudy,43,active,2025-12-12 17:26:15
+229,Flood,17.274651,78.571188,18,Low,Clear,40,in_progress,2026-08-12 06:09:45
+230,Flood,17.496145,78.548533,16,Low,Clear,34,active,2026-07-23 16:05:13
+231,Fire,17.45658,78.475929,19,High,Rain,42,active,2026-06-15 09:48:19
+232,Medical Emergency,17.379685,78.5191,4,Critical,Clear,49,in_progress,2026-03-26 22:04:02
+233,Road Accident,17.482218,78.520185,26,Medium,Clear,36,active,2025-12-06 17:55:24
+234,Road Accident,17.473556,78.533554,24,Low,Cloudy,40,active,2025-12-22 03:00:23
+235,Flood,17.317626,78.513096,2,Medium,Storm,27,in_progress,2026-07-07 23:23:16
+236,Industrial Accident,17.408456,78.591056,13,Medium,Clear,10,resolved,2026-07-04 22:51:06
+237,Road Accident,17.323099,78.602767,1,Low,Heavy Rain,10,active,2026-04-27 07:35:55
+238,Industrial Accident,17.444705,78.597016,3,Medium,Storm,58,in_progress,2025-09-04 00:30:08
+239,Industrial Accident,17.5023,78.498406,8,High,Rain,39,active,2026-02-25 20:12:35
+240,Fire,17.461914,78.403499,2,Low,Clear,45,resolved,2026-08-08 22:40:19
+241,Industrial Accident,17.348956,78.44973,14,Low,Cloudy,41,active,2025-12-06 15:24:55
+242,Medical Emergency,17.324096,78.549891,30,Medium,Rain,46,in_progress,2025-08-20 18:43:33
+243,Industrial Accident,17.353099,78.375941,7,High,Heavy Rain,52,in_progress,2026-05-04 22:27:33
+244,Building Collapse,17.471592,78.422067,2,Medium,Heavy Rain,31,resolved,2025-12-09 21:43:05
+245,Medical Emergency,17.489506,78.512341,24,Critical,Cloudy,35,resolved,2026-05-28 20:13:30
+246,Flood,17.367311,78.58227,7,Critical,Rain,39,in_progress,2026-01-14 06:10:30
+247,Industrial Accident,17.440254,78.382848,12,Low,Rain,52,in_progress,2025-11-19 04:37:59
+248,Fire,17.30549,78.543799,27,Low,Storm,47,in_progress,2026-02-16 14:08:01
+249,Medical Emergency,17.503406,78.42688,6,Critical,Heavy Rain,39,in_progress,2026-05-15 05:32:21
+250,Road Accident,17.311442,78.500539,3,Low,Heavy Rain,34,in_progress,2026-04-07 08:29:07
+251,Industrial Accident,17.295194,78.42508,27,Critical,Rain,13,resolved,2026-08-05 05:28:09
+252,Building Collapse,17.410552,78.476809,20,High,Storm,33,in_progress,2026-01-11 16:23:09
+253,Fire,17.504921,78.517967,24,Low,Storm,7,resolved,2025-11-20 18:33:16
+254,Industrial Accident,17.493511,78.479323,5,Medium,Rain,49,active,2026-02-21 07:34:35
+255,Industrial Accident,17.476028,78.51969,29,High,Rain,39,resolved,2026-03-19 14:04:04
+256,Fire,17.34946,78.471903,14,Medium,Cloudy,14,resolved,2026-04-24 13:11:41
+257,Fire,17.32334,78.552473,2,High,Storm,51,resolved,2026-04-20 20:46:34
+258,Medical Emergency,17.498593,78.456347,2,High,Cloudy,57,active,2025-10-13 01:37:01
+259,Building Collapse,17.429229,78.387617,19,Critical,Rain,35,in_progress,2026-06-16 21:22:44
+260,Road Accident,17.436039,78.50074,25,High,Storm,24,active,2026-03-24 08:57:16
+261,Flood,17.433907,78.395182,9,Low,Cloudy,54,resolved,2026-03-15 01:32:36
+262,Industrial Accident,17.444925,78.513651,25,Medium,Storm,43,resolved,2026-04-06 00:15:53
+263,Industrial Accident,17.445464,78.374935,17,Low,Heavy Rain,43,resolved,2026-07-12 21:50:07
+264,Flood,17.267612,78.473627,19,Low,Rain,23,in_progress,2026-06-21 19:03:09
+265,Building Collapse,17.417788,78.493533,19,High,Clear,28,resolved,2025-12-12 14:58:44
+266,Fire,17.272829,78.449772,29,Medium,Heavy Rain,31,resolved,2025-09-25 06:23:38
+267,Medical Emergency,17.380268,78.413402,11,High,Rain,55,resolved,2025-08-26 13:48:01
+268,Building Collapse,17.468446,78.451329,28,Medium,Cloudy,60,active,2025-10-17 16:04:05
+269,Medical Emergency,17.333084,78.574877,9,High,Storm,30,active,2026-03-04 22:22:13
+270,Flood,17.289475,78.587682,24,Low,Storm,5,active,2026-03-06 10:00:25
+271,Fire,17.452788,78.367979,22,Low,Rain,46,active,2026-01-28 08:22:55
+272,Industrial Accident,17.351744,78.550952,3,High,Cloudy,20,resolved,2025-09-13 20:24:38
+273,Fire,17.370134,78.376603,4,Medium,Rain,54,in_progress,2026-02-15 04:46:15
+274,Industrial Accident,17.501797,78.369755,13,Medium,Rain,11,resolved,2026-02-01 22:58:04
+275,Medical Emergency,17.4526,78.494498,12,High,Heavy Rain,36,active,2025-11-07 15:30:23
+276,Building Collapse,17.400809,78.429152,20,Medium,Cloudy,30,resolved,2026-06-28 12:12:20
+277,Fire,17.265206,78.590455,7,High,Heavy Rain,14,in_progress,2025-10-23 09:37:42
+278,Fire,17.282894,78.444618,21,Low,Storm,49,active,2026-03-31 13:06:35
+279,Industrial Accident,17.448238,78.427502,9,Medium,Cloudy,53,in_progress,2026-05-17 05:11:24
+280,Road Accident,17.474441,78.489634,18,Medium,Storm,43,resolved,2025-10-09 18:28:17
+281,Medical Emergency,17.321436,78.574059,11,Low,Rain,11,in_progress,2026-03-31 06:52:49
+282,Flood,17.502427,78.427836,17,Low,Rain,53,active,2025-10-22 01:30:23
+283,Building Collapse,17.320484,78.414254,15,Medium,Clear,24,in_progress,2026-04-02 01:44:11
+284,Road Accident,17.488554,78.385891,26,High,Heavy Rain,43,in_progress,2025-08-26 22:37:48
+285,Fire,17.470573,78.524514,20,Low,Heavy Rain,12,active,2025-10-09 06:59:42
+286,Industrial Accident,17.359565,78.530905,27,Medium,Clear,52,in_progress,2025-10-04 10:21:16
+287,Fire,17.339986,78.606481,19,Low,Rain,22,in_progress,2026-05-16 13:53:08
+288,Building Collapse,17.272834,78.444984,18,Medium,Heavy Rain,35,resolved,2026-03-19 21:52:56
+289,Building Collapse,17.408342,78.424212,23,High,Rain,38,active,2025-10-25 09:14:12
+290,Industrial Accident,17.420907,78.547256,16,Critical,Heavy Rain,6,in_progress,2026-06-21 21:23:30
+291,Road Accident,17.356202,78.431365,14,High,Cloudy,9,resolved,2026-05-03 00:55:33
+292,Industrial Accident,17.291789,78.568602,6,High,Cloudy,15,in_progress,2025-11-25 21:05:16
+293,Industrial Accident,17.316019,78.526404,28,Low,Cloudy,41,in_progress,2025-10-27 23:14:06
+294,Medical Emergency,17.355755,78.605003,10,Medium,Storm,9,in_progress,2025-12-27 12:38:48
+295,Road Accident,17.452891,78.511753,29,Low,Heavy Rain,48,active,2026-03-12 13:29:08
+296,Flood,17.435613,78.580669,19,High,Rain,29,active,2026-03-28 09:36:00
+297,Fire,17.358492,78.446221,27,Low,Cloudy,9,active,2026-06-25 17:03:50
+298,Road Accident,17.37065,78.477954,16,Critical,Rain,5,in_progress,2025-11-21 08:50:01
+299,Road Accident,17.44114,78.513781,29,High,Cloudy,55,in_progress,2026-02-18 17:50:37
+300,Flood,17.274283,78.391761,21,Medium,Rain,41,in_progress,2026-01-03 21:14:06
+301,Flood,17.269458,78.598405,17,Critical,Rain,34,in_progress,2025-08-22 11:51:14
+302,Building Collapse,17.435288,78.523887,21,Low,Heavy Rain,33,active,2026-02-04 14:13:42
+303,Fire,17.407278,78.587975,26,Critical,Storm,5,in_progress,2026-05-02 22:53:53
+304,Medical Emergency,17.492121,78.574775,29,Medium,Cloudy,6,resolved,2025-10-17 13:39:55
+305,Medical Emergency,17.417353,78.486397,4,Medium,Storm,60,active,2025-12-11 06:29:51
+306,Building Collapse,17.38281,78.542959,16,Medium,Rain,15,resolved,2026-02-19 22:05:14
+307,Fire,17.364533,78.417467,23,Critical,Rain,6,resolved,2026-01-05 13:17:32
+308,Fire,17.292508,78.454775,8,Medium,Cloudy,25,active,2025-10-29 23:05:22
+309,Flood,17.34191,78.450164,16,Medium,Storm,29,active,2025-11-27 05:47:45
+310,Flood,17.270015,78.513748,20,Medium,Rain,33,resolved,2025-10-15 01:36:20
+311,Flood,17.495533,78.433853,11,Medium,Rain,35,resolved,2026-07-17 17:49:56
+312,Flood,17.462675,78.598147,19,Critical,Storm,13,resolved,2026-06-30 19:14:06
+313,Fire,17.335304,78.477664,27,Low,Storm,59,resolved,2026-02-04 15:31:26
+314,Road Accident,17.396125,78.553517,17,Low,Clear,44,in_progress,2026-05-16 12:08:32
+315,Building Collapse,17.380606,78.538162,16,Low,Rain,19,active,2026-03-14 05:17:04
+316,Road Accident,17.344679,78.381495,18,High,Heavy Rain,57,active,2025-11-21 03:00:24
+317,Medical Emergency,17.430484,78.438851,28,Low,Cloudy,18,resolved,2026-04-22 14:44:48
+318,Medical Emergency,17.447653,78.371311,30,Medium,Clear,35,active,2025-12-25 00:28:45
+319,Fire,17.462256,78.605744,12,Medium,Cloudy,52,resolved,2025-09-29 03:00:33
+320,Flood,17.441441,78.549164,8,Medium,Cloudy,44,in_progress,2026-03-23 05:33:10
+321,Flood,17.351863,78.430127,24,Medium,Clear,24,in_progress,2026-05-17 04:46:13
+322,Fire,17.389407,78.50776,18,Medium,Cloudy,10,in_progress,2026-08-06 02:31:30
+323,Flood,17.501769,78.538249,29,Medium,Rain,11,resolved,2025-11-29 20:04:48
+324,Medical Emergency,17.317995,78.433567,16,Low,Cloudy,5,resolved,2026-03-29 04:00:07
+325,Fire,17.35594,78.42921,8,High,Clear,6,active,2025-10-31 16:17:40
+326,Flood,17.34912,78.504066,11,High,Clear,60,active,2025-09-01 11:54:57
+327,Medical Emergency,17.416034,78.536308,21,Critical,Rain,25,active,2026-08-01 08:47:52
+328,Medical Emergency,17.418705,78.445004,18,Low,Cloudy,51,resolved,2025-12-17 19:07:51
+329,Building Collapse,17.441557,78.570526,12,Critical,Heavy Rain,58,active,2026-01-21 20:50:15
+330,Industrial Accident,17.333707,78.588872,24,Medium,Rain,52,in_progress,2025-09-16 18:19:39
+331,Fire,17.436664,78.570576,14,Low,Heavy Rain,30,resolved,2025-11-19 13:19:41
+332,Building Collapse,17.414663,78.546864,14,Medium,Heavy Rain,45,in_progress,2025-11-21 15:41:53
+333,Industrial Accident,17.320808,78.563999,11,Critical,Rain,8,active,2025-12-19 22:59:12
+334,Medical Emergency,17.392737,78.414875,13,High,Clear,60,active,2026-06-20 05:01:25
+335,Fire,17.409472,78.596621,24,Low,Rain,44,active,2026-03-12 01:07:31
+336,Building Collapse,17.325958,78.457534,5,Critical,Heavy Rain,42,in_progress,2026-01-05 22:29:39
+337,Fire,17.402515,78.461951,3,Low,Cloudy,14,active,2025-12-25 10:35:38
+338,Building Collapse,17.45842,78.381921,25,Medium,Storm,47,active,2026-01-02 03:12:42
+339,Medical Emergency,17.369507,78.602553,15,High,Clear,48,resolved,2026-07-18 15:22:18
+340,Road Accident,17.350767,78.506592,6,Low,Heavy Rain,22,in_progress,2025-09-25 11:59:38
+341,Industrial Accident,17.463895,78.512018,23,Medium,Heavy Rain,8,in_progress,2025-09-26 13:59:10
+342,Fire,17.302638,78.526954,4,Medium,Cloudy,28,active,2025-10-16 11:33:34
+343,Building Collapse,17.412179,78.38179,30,Critical,Storm,25,in_progress,2026-03-23 17:38:30
+344,Medical Emergency,17.467169,78.576333,22,Low,Heavy Rain,42,active,2026-01-04 23:13:01
+345,Industrial Accident,17.375359,78.522774,22,High,Cloudy,59,resolved,2025-11-07 11:28:34
+346,Medical Emergency,17.425709,78.469341,19,Low,Cloudy,43,active,2025-09-14 14:41:39
+347,Flood,17.458966,78.580597,30,Medium,Cloudy,58,in_progress,2025-09-13 03:37:49
+348,Building Collapse,17.450859,78.401726,18,Medium,Clear,28,resolved,2025-09-24 15:48:15
+349,Road Accident,17.359263,78.591195,9,Low,Heavy Rain,36,resolved,2026-06-24 19:49:15
+350,Medical Emergency,17.501074,78.433321,25,Medium,Storm,21,resolved,2026-05-10 00:56:56
+351,Road Accident,17.503927,78.468715,12,Medium,Cloudy,49,in_progress,2026-06-23 20:56:57
+352,Building Collapse,17.325007,78.605807,29,Low,Rain,53,active,2025-09-05 08:12:18
+353,Industrial Accident,17.388527,78.539854,21,Low,Clear,5,active,2026-06-12 19:06:23
+354,Flood,17.270005,78.514635,2,Low,Cloudy,29,resolved,2025-12-14 23:48:42
+355,Building Collapse,17.447294,78.506358,20,Critical,Clear,12,in_progress,2026-06-24 23:10:23
+356,Road Accident,17.371255,78.42244,3,Low,Storm,24,active,2026-02-13 15:56:40
+357,Road Accident,17.295153,78.467774,9,Medium,Heavy Rain,41,in_progress,2026-08-05 19:04:14
+358,Flood,17.33901,78.436356,17,Low,Cloudy,7,active,2025-11-10 07:39:55
+359,Industrial Accident,17.305522,78.583403,13,Critical,Heavy Rain,36,in_progress,2025-09-28 02:07:59
+360,Fire,17.378465,78.478675,10,Medium,Rain,47,active,2026-02-04 08:07:31
+361,Medical Emergency,17.296508,78.442848,11,High,Cloudy,47,resolved,2026-04-17 13:22:12
+362,Building Collapse,17.41923,78.554349,25,Critical,Storm,12,active,2026-01-26 03:35:15
+363,Industrial Accident,17.400725,78.432309,23,Medium,Storm,32,resolved,2026-06-24 20:44:10
+364,Building Collapse,17.424511,78.419189,21,Medium,Storm,24,resolved,2026-07-14 04:43:19
+365,Fire,17.496529,78.457877,8,Medium,Heavy Rain,47,resolved,2026-05-06 02:47:01
+366,Industrial Accident,17.324359,78.371784,30,Low,Storm,27,active,2025-10-17 22:37:26
+367,Flood,17.373873,78.549458,22,Medium,Rain,46,resolved,2025-11-22 17:43:49
+368,Road Accident,17.457249,78.43444,28,High,Storm,58,in_progress,2026-06-07 07:00:33
+369,Industrial Accident,17.288563,78.568517,19,Medium,Heavy Rain,34,active,2025-08-29 18:42:49
+370,Flood,17.455336,78.579279,30,Medium,Clear,30,in_progress,2025-12-02 08:24:17
+371,Flood,17.373562,78.5767,23,Medium,Rain,55,resolved,2025-08-27 07:30:13
+372,Road Accident,17.472593,78.532944,16,High,Clear,16,in_progress,2026-06-20 14:23:15
+373,Road Accident,17.423268,78.45052,18,Low,Cloudy,9,active,2025-10-29 14:06:46
+374,Fire,17.426092,78.5714,4,Medium,Heavy Rain,7,in_progress,2026-02-26 08:00:06
+375,Fire,17.367452,78.593847,22,Critical,Cloudy,38,resolved,2026-04-20 18:02:04
+376,Industrial Accident,17.310868,78.524537,27,Low,Storm,25,active,2026-02-04 03:10:08
+377,Fire,17.392249,78.599809,13,Medium,Storm,59,in_progress,2026-02-19 19:21:12
+378,Flood,17.270643,78.370079,10,High,Heavy Rain,53,active,2026-01-02 12:30:56
+379,Medical Emergency,17.356159,78.412391,8,Low,Heavy Rain,49,active,2025-09-12 23:09:43
+380,Fire,17.27673,78.560836,2,High,Cloudy,13,resolved,2026-05-11 15:26:28
+381,Road Accident,17.414364,78.372282,6,Medium,Cloudy,48,resolved,2026-06-21 10:38:19
+382,Industrial Accident,17.432304,78.560701,25,Critical,Cloudy,51,in_progress,2025-10-10 04:45:39
+383,Road Accident,17.503459,78.474887,27,Low,Clear,6,in_progress,2026-05-12 13:48:18
+384,Flood,17.334103,78.549958,17,Medium,Heavy Rain,50,resolved,2026-07-21 08:05:57
+385,Medical Emergency,17.295095,78.60285,29,High,Heavy Rain,10,resolved,2025-09-15 19:57:43
+386,Flood,17.409649,78.514202,7,Critical,Storm,16,resolved,2025-12-23 05:12:36
+387,Fire,17.493096,78.551363,27,High,Heavy Rain,55,active,2025-10-16 07:36:37
+388,Fire,17.271121,78.415369,13,Medium,Rain,23,active,2025-12-25 22:17:47
+389,Industrial Accident,17.421846,78.447291,14,Medium,Storm,43,resolved,2026-08-05 18:50:52
+390,Medical Emergency,17.30827,78.573015,9,Critical,Storm,37,in_progress,2025-12-11 18:19:10
+391,Medical Emergency,17.386457,78.434732,30,Critical,Heavy Rain,56,resolved,2026-01-15 05:22:28
+392,Medical Emergency,17.490826,78.39484,7,High,Storm,50,resolved,2026-01-12 00:14:04
+393,Industrial Accident,17.353853,78.371243,22,High,Cloudy,26,active,2025-12-17 05:57:55
+394,Medical Emergency,17.447032,78.376423,30,Medium,Rain,47,resolved,2026-01-26 07:31:26
+395,Fire,17.331069,78.514855,5,High,Storm,20,resolved,2026-07-21 01:28:21
+396,Road Accident,17.381848,78.382918,17,Medium,Cloudy,18,resolved,2025-11-02 03:19:40
+397,Fire,17.482079,78.54437,2,Low,Rain,26,resolved,2026-03-11 11:48:10
+398,Flood,17.366634,78.403673,3,High,Cloudy,40,active,2026-02-18 16:06:41
+399,Industrial Accident,17.418382,78.462858,1,Medium,Rain,44,active,2025-12-05 10:23:11
+400,Road Accident,17.467268,78.596219,10,Medium,Rain,29,active,2026-07-15 07:37:38
+401,Building Collapse,17.483042,78.562066,16,Critical,Clear,6,active,2026-02-05 23:32:35
+402,Road Accident,17.476181,78.44467,2,Low,Clear,24,in_progress,2025-09-21 16:57:12
+403,Building Collapse,17.460253,78.473701,18,Medium,Heavy Rain,41,in_progress,2025-09-24 07:58:16
+404,Road Accident,17.304384,78.412416,20,Medium,Heavy Rain,17,resolved,2026-06-14 15:46:06
+405,Road Accident,17.438485,78.511297,22,High,Heavy Rain,23,active,2026-01-14 13:53:22
+406,Industrial Accident,17.274318,78.541677,10,Medium,Heavy Rain,27,in_progress,2025-10-01 14:58:06
+407,Flood,17.450885,78.54025,29,Critical,Heavy Rain,35,in_progress,2026-05-11 10:27:57
+408,Building Collapse,17.433005,78.518579,10,Medium,Rain,49,active,2026-02-01 05:49:33
+409,Industrial Accident,17.418732,78.488049,10,Medium,Rain,51,in_progress,2025-12-10 05:23:48
+410,Building Collapse,17.389356,78.597266,29,Medium,Heavy Rain,31,resolved,2026-02-12 07:55:41
+411,Fire,17.341269,78.443748,1,Critical,Rain,31,resolved,2025-10-18 05:54:19
+412,Flood,17.288041,78.488538,26,High,Cloudy,6,active,2026-05-26 04:47:57
+413,Building Collapse,17.357416,78.495145,24,Low,Cloudy,43,active,2026-05-23 22:35:12
+414,Flood,17.341041,78.520089,29,Critical,Rain,35,active,2026-04-04 17:36:22
+415,Road Accident,17.281182,78.60557,6,Medium,Storm,15,active,2026-01-20 16:06:13
+416,Fire,17.280279,78.575229,17,Medium,Rain,57,resolved,2026-06-02 15:21:46
+417,Fire,17.310752,78.578377,24,Low,Heavy Rain,33,resolved,2025-08-28 04:59:50
+418,Road Accident,17.40572,78.486708,10,Medium,Rain,59,in_progress,2026-06-13 15:11:35
+419,Building Collapse,17.477033,78.390263,17,Medium,Storm,24,in_progress,2026-01-12 13:57:54
+420,Fire,17.404134,78.450692,14,Critical,Storm,39,in_progress,2026-01-15 15:42:30
+421,Industrial Accident,17.391926,78.507868,25,Low,Heavy Rain,45,resolved,2026-05-13 01:54:37
+422,Road Accident,17.283405,78.511007,29,Critical,Clear,14,active,2026-06-25 03:59:23
+423,Road Accident,17.423757,78.528247,11,Medium,Clear,34,resolved,2026-06-06 13:30:37
+424,Flood,17.465067,78.601686,21,Low,Heavy Rain,34,active,2026-03-14 19:39:21
+425,Flood,17.493287,78.587897,25,Critical,Cloudy,30,resolved,2025-12-20 07:59:14
+426,Fire,17.396433,78.566901,17,Medium,Rain,38,resolved,2026-05-13 23:19:13
+427,Industrial Accident,17.275424,78.513335,18,Medium,Storm,31,active,2026-06-21 20:04:48
+428,Flood,17.489599,78.533034,21,High,Cloudy,43,in_progress,2025-09-15 06:59:03
+429,Industrial Accident,17.405895,78.56317,17,Low,Heavy Rain,13,active,2025-10-15 17:13:07
+430,Industrial Accident,17.408803,78.592993,16,Low,Rain,59,in_progress,2026-07-09 03:26:46
+431,Medical Emergency,17.316431,78.403759,27,Low,Cloudy,43,active,2026-08-12 11:33:32
+432,Road Accident,17.270838,78.481192,11,Critical,Clear,59,in_progress,2026-07-31 20:04:24
+433,Building Collapse,17.350987,78.59654,8,Medium,Clear,35,resolved,2026-02-22 16:05:10
+434,Building Collapse,17.323461,78.390167,23,Low,Rain,46,in_progress,2026-03-17 23:09:30
+435,Medical Emergency,17.474975,78.553398,27,High,Cloudy,52,resolved,2026-02-18 23:10:37
+436,Building Collapse,17.504044,78.491498,24,Low,Heavy Rain,35,active,2025-11-10 11:01:00
+437,Fire,17.484804,78.407575,17,High,Clear,18,in_progress,2025-10-11 03:29:30
+438,Medical Emergency,17.4397,78.537055,5,Medium,Rain,34,in_progress,2026-01-30 15:29:42
+439,Building Collapse,17.363481,78.519281,17,Medium,Heavy Rain,6,resolved,2026-01-12 23:51:45
+440,Road Accident,17.265706,78.59736,30,Medium,Storm,45,in_progress,2026-06-17 05:44:41
+441,Industrial Accident,17.484049,78.475752,28,High,Heavy Rain,39,resolved,2026-03-18 01:20:38
+442,Medical Emergency,17.296805,78.482047,7,High,Storm,39,in_progress,2026-05-12 20:00:41
+443,Industrial Accident,17.364955,78.603293,16,Medium,Cloudy,48,resolved,2026-05-08 22:48:17
+444,Industrial Accident,17.318409,78.40937,8,Medium,Heavy Rain,19,in_progress,2026-03-14 05:36:05
+445,Medical Emergency,17.287283,78.38183,9,Critical,Clear,7,resolved,2026-04-24 10:29:37
+446,Industrial Accident,17.476316,78.42012,21,Medium,Heavy Rain,58,active,2025-12-23 19:24:02
+447,Road Accident,17.275376,78.385117,28,Low,Heavy Rain,56,active,2026-07-27 01:58:40
+448,Building Collapse,17.327439,78.525802,14,Critical,Rain,37,resolved,2026-01-26 04:50:03
+449,Flood,17.314174,78.433064,13,Low,Clear,8,active,2026-07-31 10:45:43
+450,Building Collapse,17.362267,78.473343,2,High,Heavy Rain,30,resolved,2025-08-18 19:12:20
+451,Medical Emergency,17.348903,78.505761,21,High,Cloudy,33,active,2026-01-05 10:39:06
+452,Medical Emergency,17.279111,78.405828,28,Medium,Rain,15,resolved,2026-03-18 09:54:14
+453,Flood,17.305109,78.489162,21,Medium,Storm,52,resolved,2026-03-07 19:03:10
+454,Building Collapse,17.333933,78.54182,25,High,Storm,9,in_progress,2025-11-26 18:46:39
+455,Medical Emergency,17.415676,78.368509,22,High,Heavy Rain,46,active,2026-04-10 20:47:10
+456,Fire,17.423036,78.562673,10,Medium,Clear,25,in_progress,2026-01-06 15:23:54
+457,Building Collapse,17.323871,78.599196,27,Low,Cloudy,21,resolved,2026-03-19 12:02:20
+458,Road Accident,17.297247,78.467812,8,High,Heavy Rain,16,active,2025-10-18 06:09:55
+459,Fire,17.446445,78.39431,28,Medium,Clear,20,resolved,2025-11-24 18:19:31
+460,Flood,17.478076,78.445982,18,Medium,Storm,14,in_progress,2026-08-09 18:48:06
+461,Fire,17.305825,78.487721,13,High,Clear,34,in_progress,2025-11-11 00:39:01
+462,Fire,17.291496,78.573085,20,High,Cloudy,45,resolved,2025-10-25 08:32:19
+463,Industrial Accident,17.274256,78.564281,4,Low,Rain,7,in_progress,2025-11-29 22:00:30
+464,Fire,17.35389,78.402746,24,Low,Clear,51,active,2025-10-08 02:35:16
+465,Building Collapse,17.351119,78.464321,1,High,Cloudy,47,resolved,2025-10-06 11:24:25
+466,Industrial Accident,17.465376,78.414224,24,High,Rain,21,resolved,2025-09-08 06:51:42
+467,Building Collapse,17.36562,78.501502,5,Medium,Cloudy,29,resolved,2026-03-15 01:29:34
+468,Flood,17.38053,78.50014,24,High,Cloudy,51,active,2026-01-13 01:16:30
+469,Fire,17.442013,78.461208,21,Medium,Cloudy,27,resolved,2026-04-28 01:56:55
+470,Industrial Accident,17.266983,78.585526,23,Critical,Heavy Rain,9,active,2026-04-13 08:20:22
+471,Road Accident,17.455536,78.458358,28,Medium,Storm,38,in_progress,2026-05-11 06:51:27
+472,Flood,17.411068,78.405468,27,Critical,Rain,23,in_progress,2026-01-25 20:55:41
+473,Building Collapse,17.453744,78.519867,24,Medium,Rain,23,in_progress,2026-05-26 16:46:40
+474,Road Accident,17.496473,78.56671,9,Critical,Storm,51,in_progress,2026-04-30 22:32:30
+475,Building Collapse,17.318652,78.394419,4,Medium,Clear,37,resolved,2025-10-21 21:35:01
+476,Building Collapse,17.4519,78.392301,29,Medium,Storm,21,in_progress,2025-11-09 16:38:16
+477,Fire,17.466335,78.604545,16,Critical,Cloudy,21,active,2025-12-12 16:33:05
+478,Building Collapse,17.322014,78.48341,5,High,Clear,58,resolved,2026-05-12 05:18:45
+479,Medical Emergency,17.366033,78.572029,8,Low,Cloudy,51,in_progress,2025-11-10 19:47:03
+480,Industrial Accident,17.368726,78.381954,8,Low,Clear,31,active,2026-02-04 07:31:58
+481,Road Accident,17.437507,78.372708,11,High,Cloudy,11,active,2026-01-23 11:58:49
+482,Road Accident,17.466294,78.543622,30,Medium,Cloudy,26,active,2026-03-08 14:15:51
+483,Flood,17.370816,78.439154,24,Medium,Storm,27,in_progress,2026-06-15 14:30:26
+484,Building Collapse,17.397622,78.449049,24,Low,Heavy Rain,30,resolved,2026-01-01 19:29:13
+485,Building Collapse,17.434395,78.405066,17,High,Storm,9,in_progress,2026-03-13 16:24:30
+486,Industrial Accident,17.432463,78.599572,5,Medium,Clear,21,resolved,2026-07-10 00:27:32
+487,Road Accident,17.442889,78.543022,16,High,Clear,29,resolved,2026-03-04 19:19:31
+488,Medical Emergency,17.44925,78.447377,5,High,Storm,26,resolved,2025-10-05 05:28:27
+489,Flood,17.294311,78.569672,16,Low,Rain,24,active,2026-06-02 19:13:35
+490,Fire,17.501851,78.516544,21,High,Rain,46,in_progress,2026-04-21 03:25:16
+491,Flood,17.400995,78.52999,10,Medium,Heavy Rain,39,resolved,2025-09-12 12:18:06
+492,Industrial Accident,17.43531,78.42876,1,High,Clear,29,in_progress,2026-03-25 06:15:48
+493,Fire,17.361413,78.370934,27,Low,Storm,30,active,2026-07-01 09:31:37
+494,Industrial Accident,17.405764,78.463114,29,Critical,Clear,54,active,2026-07-20 00:57:20
+495,Building Collapse,17.348992,78.440802,8,Medium,Storm,28,in_progress,2026-04-07 03:53:59
+496,Flood,17.37875,78.390595,28,Low,Cloudy,60,active,2025-11-24 21:34:46
+497,Medical Emergency,17.429897,78.541472,28,Critical,Clear,45,resolved,2025-10-05 00:14:14
+498,Building Collapse,17.303601,78.598254,6,Critical,Rain,25,resolved,2026-08-17 15:41:48
+499,Building Collapse,17.418743,78.406323,9,Medium,Clear,58,active,2026-05-09 20:08:10
+500,Industrial Accident,17.409313,78.470667,29,Critical,Rain,10,in_progress,2026-06-03 20:12:49
