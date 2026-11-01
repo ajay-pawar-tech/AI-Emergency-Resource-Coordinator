@@ -20,10 +20,8 @@ load_dotenv(dotenv_path=ENV_FILE, override=True)
 GEOAPIFY_API_KEY = os.getenv("GEOAPIFY_API_KEY")
 
 # Check whether the Geoapify API key was loaded from the .env file.
-print("API key found:", GEOAPIFY_API_KEY is not None)
 
 # Print the length of the API key without exposing the actual key.
-print("API key length:", len(GEOAPIFY_API_KEY) if GEOAPIFY_API_KEY else 0)
 
 
 # Test the Geoapify geocoding API.

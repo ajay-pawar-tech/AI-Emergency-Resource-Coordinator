@@ -34,10 +34,6 @@ def get_incidents_with_victims():
         db.close()
 
 
-# ============================================================
-# GET VICTIM SUMMARY
-# ============================================================
-
 def get_victim_summary():
     """
     Calculate victim statistics from SQLite.
@@ -52,37 +48,93 @@ def get_victim_summary():
             .all()
         )
 
-        total_victims = sum(
-            incident.victims or 0
-            for incident in incidents
-        )
+        # ----------------------------------------------------
+        # TOTAL VICTIMS
+        # ----------------------------------------------------
 
-        critical_victims = sum(
-            incident.critical_victims or 0
-            for incident in incidents
-        )
+        total_victims = 0
+
+        for incident in incidents:
+
+            try:
+                total_victims += int(
+                    incident.victims or 0
+                )
+
+            except (TypeError, ValueError):
+                total_victims += 0
+
+
+        # ----------------------------------------------------
+        # CRITICAL VICTIMS
+        # ----------------------------------------------------
+
+        critical_victims = 0
+
+        for incident in incidents:
+
+            try:
+                critical_victims += int(
+                    incident.critical_victims or 0
+                )
+
+            except (TypeError, ValueError):
+                critical_victims += 0
+
+
+        # ----------------------------------------------------
+        # NON-CRITICAL VICTIMS
+        # ----------------------------------------------------
 
         non_critical_victims = (
             total_victims
             - critical_victims
         )
 
-        incidents_with_victims = sum(
-            1
-            for incident in incidents
-            if (incident.victims or 0) > 0
-        )
+
+        # ----------------------------------------------------
+        # INCIDENTS WITH VICTIMS
+        # ----------------------------------------------------
+
+        incidents_with_victims = 0
+
+        for incident in incidents:
+
+            try:
+
+                victims = int(
+                    incident.victims or 0
+                )
+
+                if victims > 0:
+                    incidents_with_victims += 1
+
+            except (TypeError, ValueError):
+                continue
+
+
+        # ----------------------------------------------------
+        # RETURN SUMMARY
+        # ----------------------------------------------------
 
         return {
-            "total_victims": int(total_victims),
-            "critical_victims": int(critical_victims),
+            "total_victims": int(
+                total_victims
+            ),
+
+            "critical_victims": int(
+                critical_victims
+            ),
+
             "non_critical_victims": int(
                 non_critical_victims
             ),
+
             "incidents_with_victims": int(
                 incidents_with_victims
             )
         }
+
 
     finally:
 

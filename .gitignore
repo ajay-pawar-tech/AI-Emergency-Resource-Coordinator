@@ -11,3 +11,43 @@ README_backup.md
 !app/ml/models/demand_model.pkl
 !app/ml/models/severity_model.pkl
 .agents/
+# Test coverage
+.coverage
+htmlcov/
+
+# Local databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Temporary test files
+app/services/test_write.txt
+
+# Local test image
+uploaded_emergency_image.jpg
+# Local Claude development files
+.claude/
+# Standalone Groq vision experiment
+test_groq_vision.py
+accident_test.jpg
+# Local diagnostic and temporary files
+check_apis.py
+project_structure.txt
+
+# Local secrets
+.env
+.env.*
+!.env.example
+
+# Python cache and test artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+# Local emergency database
+emergency.db
+
+# Local screenshot
+image.png
+uploaded_emergency_image_*.jpg

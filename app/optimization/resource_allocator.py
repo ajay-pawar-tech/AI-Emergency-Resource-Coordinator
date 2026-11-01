@@ -179,24 +179,66 @@ def find_best_hospital(
 
 def find_best_rescue_team(
     emergency_latitude,
-    emergency_longitude
+    emergency_longitude,
+    incident_type=None
 ):
     """
     Find the nearest available rescue team.
     """
+
+    # ========================================================
+    # INCIDENT TYPE → RESCUE TEAM TYPE MAPPING
+    # ========================================================
+
+    rescue_type_mapping = {
+        "Road Accident": [
+            "Search and Rescue",
+            "Medical Rescue"
+        ],
+        "Fire": [
+            "Fire Rescue",
+            "Search and Rescue"
+        ],
+        "Flood": [
+            "Flood Rescue",
+            "Water Rescue"
+        ],
+        "Building Collapse": [
+            "Search and Rescue",
+            "Urban Rescue"
+        ],
+        "Medical Emergency": [
+            "Medical Rescue"
+        ]
+    }
+
+    required_team_types = rescue_type_mapping.get(
+        incident_type,
+        []
+    )
 
     db = SessionLocal()
 
     try:
 
         # Get available rescue teams.
-        teams = (
+                # Get available rescue teams.
+        query = (
             db.query(RescueTeam)
             .filter(
                 RescueTeam.status.ilike("available")
             )
-            .all()
         )
+
+        # Filter rescue teams according to incident type.
+        if required_team_types:
+            query = query.filter(
+                RescueTeam.team_type.in_(
+                    required_team_types
+                )
+            )
+
+        teams = query.all()
 
 
         # No team available.

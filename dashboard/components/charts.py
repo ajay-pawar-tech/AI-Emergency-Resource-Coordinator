@@ -51,27 +51,48 @@ def display_emergency_charts(result):
     )
 
 
-    # ==========================================================
+        # ==========================================================
     # HOSPITAL CAPACITY
     # ==========================================================
 
     st.markdown("### 🏥 Hospital Capacity")
 
+    total_beds = hospital_summary.get("total_beds", 0)
+    available_beds = hospital_summary.get("available_beds", 0)
+
+    occupied_beds = max(
+        0,
+        total_beds - available_beds
+    )
+
+    utilization_percentage = (
+        (occupied_beds / total_beds) * 100
+        if total_beds > 0
+        else 0
+    )
+
     hospital_data = pd.DataFrame(
         {
             "Category": [
-                "Active Hospitals",
-                "Available Beds"
+                "Available Beds",
+                "Occupied Beds"
             ],
             "Count": [
-                hospital_summary.get("active_hospitals", 0),
-                hospital_summary.get("available_beds", 0)
+                available_beds,
+                occupied_beds
             ]
         }
     )
 
     st.bar_chart(
         hospital_data.set_index("Category")
+    )
+
+    st.caption(
+        f"Bed Utilization: {utilization_percentage:.1f}% "
+        f"| Available: {available_beds:,} "
+        f"| Occupied: {occupied_beds:,} "
+        f"| Total: {total_beds:,}"
     )
 
 

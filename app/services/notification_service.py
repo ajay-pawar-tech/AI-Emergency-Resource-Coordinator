@@ -16,7 +16,26 @@ def create_emergency_notification(
     notification_time = datetime.now().strftime(
         "%Y-%m-%d %H:%M:%S"
     )
+    # Format the AI recommendation for the notification.
+    if isinstance(gemini_recommendation, dict):
+        if gemini_recommendation.get("success"):
+            recommendation_data = gemini_recommendation.get(
+                "recommendation",
+                gemini_recommendation.get("analysis", {})
+            )
 
+            if isinstance(recommendation_data, dict):
+                gemini_recommendation = "\n".join(
+                    f"{key.replace('_', ' ').title()}: {value}"
+                    for key, value in recommendation_data.items()
+                )
+            else:
+                gemini_recommendation = str(recommendation_data)
+        else:
+            gemini_recommendation = gemini_recommendation.get(
+                "error",
+                "AI recommendation is unavailable."
+            )
     # Create the emergency notification message.
     notification = f"""
 ========================================

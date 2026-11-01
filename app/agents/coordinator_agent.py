@@ -65,7 +65,10 @@ from app.services.notification_service import (
 # MAIN EMERGENCY COORDINATION
 # ============================================================
 
-def coordinate_emergency():
+def coordinate_emergency(
+    incident_data=None,
+    incident_id=None
+):
     """
     Execute the complete emergency coordination workflow.
 
@@ -99,7 +102,32 @@ def coordinate_emergency():
     # GET LATEST ACTIVE INCIDENT
     # ========================================================
 
-    latest_incident = get_latest_incident()
+    # --------------------------------------------------------
+    # LOAD INCIDENT
+    # --------------------------------------------------------
+
+    if incident_id is not None:
+        from app.database.db import SessionLocal
+        from app.database.repositories.incident_repository import IncidentRepository
+
+        db = SessionLocal()
+
+        try:
+            latest_incident = IncidentRepository.get_by_id(
+                db,
+                incident_id
+            )
+
+            if latest_incident is None:
+                raise RuntimeError(
+                    f"Incident #{incident_id} was not found in the database."
+                )
+
+        finally:
+            db.close()
+
+    else:
+        latest_incident = get_latest_incident()
 
 
     # --------------------------------------------------------
@@ -114,15 +142,47 @@ def coordinate_emergency():
 
 
     # ========================================================
+    # AI IMAGE INCIDENT DATA
+    # ========================================================
+
+    if incident_data:
+
+        detected_incident_type = incident_data.get(
+            "incident_type",
+            "Road Accident"
+        )
+
+        detected_severity = incident_data.get(
+            "severity",
+            "Medium"
+        )
+
+        detected_victims = incident_data.get(
+            "victims",
+            0
+        )
+
+    else:
+
+        detected_incident_type = None
+        detected_severity = None
+        detected_victims = None
+
+
+    # ========================================================
     # INCIDENT INFORMATION
     # ========================================================
 
     incident_type = (
-        latest_incident.incident_type
+        detected_incident_type
+        if detected_incident_type
+        else latest_incident.incident_type
     )
 
     severity = (
-        latest_incident.severity
+        detected_severity
+        if detected_severity
+        else latest_incident.severity
     )
 
     city = (
@@ -142,8 +202,9 @@ def coordinate_emergency():
     )
 
     victims = (
-        latest_incident.victims
-        or 0
+        detected_victims
+        if detected_victims is not None
+        else (latest_incident.victims or 0)
     )
 
     critical_victims = (
@@ -246,10 +307,13 @@ def coordinate_emergency():
     #
     # Keep it at minimum 1.
 
-    required_beds = max(
-        1,
-        int(victims)
-    )
+    try:
+        required_beds = max(
+            1,
+            int(victims)
+        )
+    except (TypeError, ValueError):
+        required_beds = 1
 
 
     # ========================================================
@@ -257,15 +321,13 @@ def coordinate_emergency():
     # ========================================================
 
     optimized_resources = (
-        optimize_emergency_resources(
-
-            emergency_latitude,
-
-            emergency_longitude,
-
-            required_beds=required_beds
-        )
+    optimize_emergency_resources(
+        emergency_latitude,
+        emergency_longitude,
+        required_beds=required_beds,
+        incident_type=incident_type
     )
+)
 
 
     # ========================================================
@@ -678,12 +740,15 @@ def coordinate_emergency():
 
 
 # ============================================================
-# DIRECT TEST
+# PRINT RESULT (CONSOLE OUTPUT)
 # ============================================================
 
-if __name__ == "__main__":
-
-    result = coordinate_emergency()
+def print_emergency_result(
+    result
+):
+    """
+    Print the emergency coordination result in the console.
+    """
 
 
     # ========================================================
@@ -1164,3 +1229,12 @@ if __name__ == "__main__":
     print(
         "======================================"
     )
+
+
+# ============================================================
+# RUN FILE DIRECTLY
+# ============================================================
+
+if __name__ == "__main__":
+    result = coordinate_emergency()
+    print_emergency_result(result)

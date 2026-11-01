@@ -45,7 +45,7 @@ The complete workflow is presented through an interactive **Streamlit dashboard*
 - Streamlit dashboard
 - Modular agent-based architecture
 - API integrations
-- Gemini API fallback handling
+- Gemini and Groq AI integration with image analysis fallback
 
 ---
 
@@ -397,19 +397,18 @@ The project uses:
 - SQLite
 - SQLAlchemy
 
-**Database file:**
+**Database:**
 
-```text
-emergency.db
-```
 
-**Tables / Entities:**
+The project uses a local SQLite database.
 
-- Incidents
-- Hospitals
-- Ambulances
-- Rescue Teams
-- Victims
+- Database file: `emergency.db` (generated locally during database setup)
+- Tables / Entities:
+  - Incidents
+  - Hospitals
+  - Ambulances
+  - Rescue Teams
+- Victim counts are stored in the Incidents table.
 
 The project also contains repository modules for database operations and CRUD functionality.
 
@@ -421,7 +420,12 @@ The project also contains repository modules for database operations and CRUD fu
 AI-Emergency-Resource-Coordinator/
 │
 ├── app/
-│   │
+```
+
+
+AI-Emergency-Resource-Coordinator/
+│
+├── app/
 │   ├── agents/
 │   │   ├── coordinator_agent.py
 │   │   ├── forecast_agent.py
@@ -469,12 +473,10 @@ AI-Emergency-Resource-Coordinator/
 │
 ├── dashboard/
 │   ├── dashboard.py
-│   │
 │   ├── components/
 │   │   ├── cards.py
 │   │   ├── charts.py
 │   │   └── maps.py
-│   │
 │   └── pages/
 │       ├── analytics.py
 │       ├── hospitals.py
@@ -509,15 +511,38 @@ AI-Emergency-Resource-Coordinator/
 │   ├── test_agents.py
 │   ├── test_ml.py
 │   ├── test_optimization.py
-│   └── test_services.py
+│   ├── test_services.py
+│   ├── test_ambulance_optimizer.py
+│   ├── test_coordinator.py
+│   ├── test_coordinator_print.py
+│   ├── test_coordinator_workflow.py
+│   ├── test_forecast_agent.py
+│   ├── test_hospital_agent.py
+│   ├── test_hospital_agent_coverage.py
+│   ├── test_incident_agent.py
+│   ├── test_incident_agent_coverage.py
+│   ├── test_incident_repository_extra.py
+│   ├── test_llm_service.py
+│   ├── test_notification_service.py
+│   ├── test_notification_service_coverage.py
+│   ├── test_notification_service_extra.py
+│   ├── test_optimization_agent.py
+│   ├── test_optimization_agent_coverage.py
+│   ├── test_optimization_agent_extra.py
+│   ├── test_resource_agent.py
+│   ├── test_resource_agent_extra.py
+│   ├── test_route_agent.py
+│   ├── test_route_agent_coverage.py
+│   ├── test_route_agent_extra.py
+│   ├── test_route_optimizer.py
+│   └── test_victim_agent.py
 │
-├── emergency.db
-├── image.png
 ├── requirements.txt
 ├── .env.example
 ├── .gitignore
 ├── LICENSE
 └── README.md
+
 ```
 
 ---
@@ -534,7 +559,7 @@ AI-Emergency-Resource-Coordinator/
 | Dashboard | Streamlit |
 | Visualization | Plotly, Matplotlib, Seaborn |
 | Mapping | Folium, Streamlit-Folium |
-| Generative AI | Google Gemini, google-genai |
+| Generative AI | Google Gemini, Groq, google-genai |
 | Weather API | Weather API |
 | Routing API | Geoapify |
 | Environment Management | python-dotenv |
@@ -547,7 +572,7 @@ AI-Emergency-Resource-Coordinator/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/AI-Emergency-Resource-Coordinator.git
+git clone https://github.com/ajay-pawar-tech/AI-Emergency-Resource-Coordinator.git
 ```
 
 Move into the project directory:
@@ -570,11 +595,53 @@ Activate it:
 venv\Scripts\activate
 ```
 
+
 ### 3. Install Dependencies
+
+Install all required project dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
+
+### 4. Verify Dependencies
+
+Verify that the Groq package is installed correctly:
+
+```bash
+python -c "from groq import Groq; print('Groq import successful!')"
+```
+
+### 4. Initialize and Seed the Database
+
+Run the following commands from the project root directory.
+
+**Step 1: Generate synthetic datasets (optional)**
+
+```bash
+python scripts/generate_data.py
+```
+
+**Step 2: Initialize database tables**
+
+```bash
+python -m app.database.init_database
+```
+
+**Step 3: Seed hospitals, ambulances, and rescue teams**
+
+```bash
+python -m app.database.seed_database
+```
+
+**Step 4: Import historical incidents**
+
+```bash
+python -m app.database.seed_historical_incidents
+```
+
+**Important:** Back up your existing `emergency.db` before running the seeding commands. The data generation script may overwrite existing CSV files. Seeding scripts may add records to the database. Skip data generation if you want to preserve your existing CSV files.
+
 
 ---
 
@@ -584,6 +651,7 @@ Create a `.env` file in the project root.
 
 ```env
 GEMINI_API_KEY=your_gemini_api_key
+GROQ_API_KEY=your_groq_api_key
 WEATHER_API_KEY=your_weather_api_key
 GEOAPIFY_API_KEY=your_geoapify_api_key
 ```
@@ -612,37 +680,50 @@ The application will start and open the Streamlit dashboard.
 
 ---
 
+
 ## 🧪 Testing
 
-The project contains test modules for different components.
+The project includes automated test cases covering the major components and workflows.
 
-```text
-tests/
-├── test_agents.py
-├── test_ml.py
-├── test_optimization.py
-└── test_services.py
+### Run All Tests
+
+From the project root, execute:
+
+```bash
+python -m pytest -v
 ```
 
-The project has been tested across major components including:
+For a short test summary, execute:
 
-- Database operations
-- Incident repository
-- Hospital repository
-- Resource repository
-- Demand forecasting
-- Severity prediction
-- Ambulance optimization
-- Hospital selection
-- Rescue team selection
-- Route calculation
-- Weather service
-- Notification service
-- AI recommendation
-- End-to-end emergency coordination
-- Streamlit dashboard
+```bash
+python -m pytest -q
+```
 
----
+### Test Coverage Areas
+
+The automated tests cover:
+
+- AI Agents and coordination workflows
+- Database operations and repositories
+- Incident and victim management
+- Hospital and resource management
+- Machine learning models
+- Demand forecasting and severity prediction
+- Ambulance and resource optimization
+- Route optimization
+- Gemini and Groq AI integration
+- Emergency notification service
+- Weather and maps services
+- Emergency response workflows
+
+### Latest Test Results
+
+- **Total Tests Passed:** 167
+- **Failed:** 0
+- **Warnings:** 1 dependency deprecation warning
+
+All 167 tests passed successfully during the latest local test run.
+
 
 ## 📌 Example Emergency Coordination Flow
 
@@ -688,11 +769,12 @@ The project has been tested across major components including:
 
 ---
 
+
 ## 📊 Demo Data
 
-The project includes a local SQLite database and raw CSV datasets for development and demonstration.
+The project includes raw CSV datasets for development, testing, and demonstration.
 
-**Raw datasets include:**
+**Raw datasets (`data/raw/`):**
 
 - `ambulances.csv`
 - `hospitals.csv`
@@ -700,11 +782,14 @@ The project includes a local SQLite database and raw CSV datasets for developmen
 - `rescue_teams.csv`
 - `victims.csv`
 
-The local demonstration database contains emergency incidents and emergency resources used for testing and dashboard visualization.
+### Local Database
+
+The project uses a local SQLite database (`emergency.db`), which is generated during database initialization and setup.
+
+The database stores emergency incidents and resource information used for testing and dashboard visualization.
 
 Database contents may change during development, testing, simulations, and CRUD operations.
 
----
 
 ## 📚 Documentation
 
