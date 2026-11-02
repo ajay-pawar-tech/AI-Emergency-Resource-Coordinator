@@ -1,172 +1,159 @@
-import os
+"""LLM and vision services for the AI Emergency Resource Coordinator.
+
+Gemini is the primary provider for emergency recommendations and image
+analysis. Groq Vision is used as the image-analysis fallback.
+"""
+
+import base64
 import json
+import os
+from pathlib import Path
+
 from dotenv import load_dotenv
 from google import genai
-from pathlib import Path
-import time
-import base64
+from google.genai import types
 from groq import Groq
-# ============================================================
-# PROJECT CONFIGURATION
-# ============================================================
 
-# Get the project root directory.
+
+# ---------------------------------------------------------------------------
+# Configuration
+# ---------------------------------------------------------------------------
+
 BASE_DIR = Path(__file__).resolve().parents[2]
-
-# Path to the .env file.
 ENV_FILE = BASE_DIR / ".env"
 
+# Do not overwrite values supplied by the deployment environment.
+load_dotenv(dotenv_path=ENV_FILE, override=False)
 
-# Load environment variables.
-load_dotenv(
-    dotenv_path=ENV_FILE,
-    override=True
-)
-
-
-# Read Gemini API key.
-GEMINI_API_KEY = os.getenv(
-    "GEMINI_API_KEY"
-)
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
 
-# Read Groq API key.
-GROQ_API_KEY = os.getenv(
-    "GROQ_API_KEY"
-)
-# ============================================================
-# FALLBACK RESPONSE
-# ============================================================
+# ---------------------------------------------------------------------------
+# Shared helpers
+# ---------------------------------------------------------------------------
+
+
+def _strip_json_fence(text):
+    """Remove optional Markdown code fences from a model response."""
+    if not isinstance(text, str):
+        return ""
+
+    cleaned = text.strip()
+    if cleaned.startswith("```"):
+        lines = cleaned.splitlines()
+        if lines and lines[0].startswith("```"):
+            lines = lines[1:]
+        if lines and lines[-1].strip() == "```":
+            lines = lines[:-1]
+        cleaned = "\n".join(lines).strip()
+
+    return cleaned
+
+
+def _parse_json_object(text, provider):
+    """Parse a model response and require a JSON object."""
+    cleaned = _strip_json_fence(text)
+    if not cleaned:
+        raise ValueError(f"{provider} returned an empty response.")
+
+    try:
+        parsed = json.loads(cleaned)
+    except json.JSONDecodeError as exc:
+        raise ValueError(
+            f"{provider} returned invalid JSON: {exc}"
+        ) from exc
+
+    if not isinstance(parsed, dict):
+        raise ValueError(
+            f"{provider} returned invalid JSON: expected a JSON object."
+        )
+
+    return parsed
+
+
+def _missing_fields(data, required_fields):
+    return [field for field in required_fields if field not in data]
+
+
+def _is_rate_limit_error(error):
+    message = str(error).lower()
+    return (
+        "429" in message
+        or "rate_limit_exceeded" in message
+        or "resource_exhausted" in message
+        or "quota" in message
+        or "rate limit" in message
+    )
+
+
+def _format_optional_number(value, suffix="", decimals=2):
+    """Format a numeric value safely for fallback recommendations."""
+    if value is None:
+        return "N/A"
+
+    try:
+        return f"{float(value):.{decimals}f}{suffix}"
+    except (TypeError, ValueError):
+        return "N/A"
+
+
+# ---------------------------------------------------------------------------
+# Rule-based emergency recommendation fallback
+# ---------------------------------------------------------------------------
+
 
 def generate_fallback_response(
     emergency_data,
     reason="Gemini API unavailable."
 ):
-    """
-    Generate a rule-based emergency recommendation
-    when Gemini is unavailable.
-    """
+    """Generate a rule-based recommendation when Gemini is unavailable."""
+    emergency_data = emergency_data or {}
 
-    ambulance = emergency_data.get(
-        "ambulance"
-    )
-
-    ambulance_distance = emergency_data.get(
-        "ambulance_distance_km"
-    )
-
-    hospital = emergency_data.get(
-        "hospital"
-    )
-
-    hospital_distance = emergency_data.get(
-        "hospital_distance_km"
-    )
-
-    available_beds = emergency_data.get(
-        "available_beds",
-        0
-    )
-
-    rescue_team = emergency_data.get(
-        "rescue_team"
-    )
-
-    rescue_team_type = emergency_data.get(
-        "rescue_team_type"
-    )
-
-    rescue_team_distance = emergency_data.get(
-        "rescue_team_distance_km"
-    )
-
-    route_distance = emergency_data.get(
-        "route_distance_km"
-    )
-
-    travel_time = emergency_data.get(
-        "estimated_travel_time_minutes"
-    )
-
-    incident_type = emergency_data.get(
-        "incident_type",
-        "Emergency"
-    )
-
-    severity = emergency_data.get(
-        "severity",
-        "Unknown"
-    )
-
-    predicted_demand = emergency_data.get(
-        "predicted_demand"
-    )
-
-
-    # --------------------------------------------------------
-    # BUILD RECOMMENDATION
-    # --------------------------------------------------------
+    ambulance = emergency_data.get("ambulance")
+    hospital = emergency_data.get("hospital")
+    rescue_team = emergency_data.get("rescue_team")
 
     recommendation = f"""
 ### Emergency Response Recommendation
 
 **1. Emergency Situation Summary**
 
-- **Incident Type:** {incident_type}
-- **Severity:** {severity}
+- **Incident Type:** {emergency_data.get('incident_type', 'Emergency')}
+- **Severity:** {emergency_data.get('severity', 'Unknown')}
 
 **2. Predicted Demand**
 
-- **Demand Value:** {predicted_demand}
+- **Demand Value:** {emergency_data.get('predicted_demand', 'N/A')}
 
 **3. Recommended Ambulance**
 
-- **Unit:** {ambulance if ambulance else "No ambulance available"}
-- **Distance:** {
-    f"{ambulance_distance:.2f} km"
-    if ambulance_distance is not None
-    else "N/A"
-}
+- **Unit:** {ambulance or 'No ambulance available'}
+- **Distance:** {_format_optional_number(emergency_data.get('ambulance_distance_km'), ' km')}
 
 **4. Recommended Hospital**
 
-- **Facility:** {hospital if hospital else "No suitable hospital available"}
-- **Distance:** {
-    f"{hospital_distance:.2f} km"
-    if hospital_distance is not None
-    else "N/A"
-}
-- **Available Beds:** {available_beds}
+- **Facility:** {hospital or 'No suitable hospital available'}
+- **Distance:** {_format_optional_number(emergency_data.get('hospital_distance_km'), ' km')}
+- **Available Beds:** {emergency_data.get('available_beds', 0)}
 
 **5. Recommended Rescue Team**
 
-- **Unit:** {rescue_team if rescue_team else "No rescue team available"}
-- **Type:** {rescue_team_type if rescue_team_type else "N/A"}
-- **Distance:** {
-    f"{rescue_team_distance:.2f} km"
-    if rescue_team_distance is not None
-    else "N/A"
-}
+- **Unit:** {rescue_team or 'No rescue team available'}
+- **Type:** {emergency_data.get('rescue_team_type') or 'N/A'}
+- **Distance:** {_format_optional_number(emergency_data.get('rescue_team_distance_km'), ' km')}
 
 **6. Route Distance and Estimated Travel Time**
 
-- **Route Distance:** {
-    f"{route_distance:.2f} km"
-    if route_distance is not None
-    else "N/A"
-}
-- **Estimated Travel Time:** {
-    f"{travel_time:.2f} minutes"
-    if travel_time is not None
-    else "N/A"
-}
+- **Route Distance:** {_format_optional_number(emergency_data.get('route_distance_km'), ' km')}
+- **Estimated Travel Time:** {_format_optional_number(emergency_data.get('estimated_travel_time_minutes'), ' minutes')}
 
 **7. Immediate Recommended Action**
 
-- Dispatch the recommended ambulance to the incident location.
-- Dispatch the available rescue team when appropriate.
-- Notify the selected hospital to prepare for incoming patient(s).
-- Use the calculated emergency route for response.
+- Dispatch a selected ambulance only when one is available.
+- Dispatch an available rescue team when appropriate.
+- Notify the selected hospital only when a suitable hospital is available.
+- Confirm the route before dispatching emergency resources.
 
 > **Fallback Mode:** {reason}
 """
@@ -174,142 +161,83 @@ def generate_fallback_response(
     return recommendation
 
 
-# ============================================================
-# GEMINI EMERGENCY RESPONSE
-# ============================================================
+# ---------------------------------------------------------------------------
+# Gemini emergency response recommendation
+# ---------------------------------------------------------------------------
 
-def generate_emergency_response(
-    emergency_data
-):
+
+def generate_emergency_response(emergency_data):
+    """Generate an emergency response recommendation using Gemini.
+
+    Returns the existing project contract:
+      * success dict when Gemini returns a valid recommendation
+      * fallback recommendation text when Gemini is unavailable
+      * error dict for invalid or incomplete model JSON
     """
-    Generate an AI emergency recommendation using Gemini.
-
-    If Gemini is unavailable or quota is exceeded,
-    automatically return a rule-based fallback response.
-    """
-
-    # --------------------------------------------------------
-    # CHECK API KEY
-    # --------------------------------------------------------
+    emergency_data = emergency_data or {}
 
     if not GEMINI_API_KEY:
-
         return generate_fallback_response(
             emergency_data,
-            "GEMINI_API_KEY is missing from .env."
+            "GEMINI_API_KEY is missing from the environment."
         )
 
-
-    try:
-
-        # ----------------------------------------------------
-        # CREATE GEMINI CLIENT
-        # ----------------------------------------------------
-
-        client = genai.Client(
-            api_key=GEMINI_API_KEY
-        )
-
-
-        # ----------------------------------------------------
-        # CREATE PROMPT
-        # ----------------------------------------------------
-
-        prompt = f"""
+    prompt = f"""
 You are an AI Emergency Response Coordinator.
 
 Analyze the following emergency response information:
+{json.dumps(emergency_data, ensure_ascii=False, default=str)}
 
-{emergency_data}
-
-Provide the emergency response recommendation as VALID JSON ONLY.
-
-Use exactly this structure:
-
+Return ONLY a valid JSON object with exactly these fields:
 {{
-    "summary": "Brief emergency situation summary",
-    "predicted_demand": 0,
-    "recommended_ambulance": "AMB-XXXX",
-    "recommended_hospital": "Hospital name",
-    "recommended_rescue_team": "Rescue Team name",
-    "route_distance_km": 0,
-    "estimated_travel_time_minutes": 0,
-    "immediate_action": "Practical immediate recommended action"
+  "summary": "Brief emergency situation summary",
+  "predicted_demand": 0,
+  "recommended_ambulance": "AMB-XXXX or No ambulance available",
+  "recommended_hospital": "Hospital name or No suitable hospital available",
+  "recommended_rescue_team": "Team name or No rescue team available",
+  "route_distance_km": 0,
+  "estimated_travel_time_minutes": 0,
+  "immediate_action": "Practical immediate recommended action"
 }}
 
-Important rules:
-
-- Return ONLY valid JSON.
-- Do not use Markdown code fences.
-- Do not add explanations before or after the JSON.
-- Do not invent information.
-- Use only the values provided in the emergency data.
-- Keep the recommendation practical and concise.
+Rules:
+- Return only JSON. Do not use Markdown fences.
+- Do not invent a resource that is missing from the supplied data.
+- If a resource is unavailable, state that it is unavailable.
+- Keep the response practical and concise.
 - Consider weather information when it is provided.
 """
 
-        # ----------------------------------------------------
-        # GEMINI REQUEST
-        # ----------------------------------------------------
-
+    try:
+        client = genai.Client(api_key=GEMINI_API_KEY)
         response = client.models.generate_content(
-            model="gemini-3.6-flash",
-            contents=prompt
+            model="gemini-3.8-flash",
+            contents=prompt,
+            config=types.GenerateContentConfig(
+                response_mime_type="application/json",
+                max_output_tokens=512,
+                temperature=0,
+            ),
         )
 
-
-        # ----------------------------------------------------
-        # VALIDATE RESPONSE
-        # ----------------------------------------------------
-
-        if response is None:
-
-            return generate_fallback_response(
-                emergency_data,
-                "Gemini returned no response."
-            )
-
-
-        if not getattr(
-            response,
-            "text",
-            None
-        ):
-
+        response_text = getattr(response, "text", None)
+        if not response_text:
             return generate_fallback_response(
                 emergency_data,
                 "Gemini returned an empty response."
             )
 
-        # ----------------------------------------------------
-                # PARSE GEMINI JSON RESPONSE
-        # ----------------------------------------------------
-
-        response_text = response.text.strip()
-
         try:
-            analysis_data = json.loads(
-                response_text
+            analysis_data = _parse_json_object(
+                response_text,
+                "Gemini"
             )
-
-            if not isinstance(analysis_data, dict):
-                return {
-                    "success": False,
-                    "error": "Invalid JSON response: expected a JSON object."
-                }
-
-        except json.JSONDecodeError as error:
+        except ValueError as exc:
             return {
                 "success": False,
-                "error": (
-                    "Gemini returned invalid JSON: "
-                    f"{str(error)}"
-                ),
-                "raw_response": response_text
+                "error": str(exc),
+                "raw_response": response_text,
             }
-        # ----------------------------------------------------
-        # VALIDATE REQUIRED FIELDS
-        # ----------------------------------------------------
 
         required_fields = [
             "summary",
@@ -319,266 +247,123 @@ Important rules:
             "recommended_rescue_team",
             "route_distance_km",
             "estimated_travel_time_minutes",
-            "immediate_action"
+            "immediate_action",
         ]
-
-        missing_fields = [
-            field
-            for field in required_fields
-            if field not in analysis_data
-        ]
-
-        if missing_fields:
-
+        missing = _missing_fields(analysis_data, required_fields)
+        if missing:
             return {
                 "success": False,
                 "error": (
                     "Missing fields in Gemini response: "
-                    + ", ".join(missing_fields)
+                    + ", ".join(missing)
                 ),
-                "raw_response": response_text
+                "raw_response": response_text,
             }
 
         return {
             "success": True,
             "recommendation": analysis_data,
-            "provider": "Gemini"
+            "provider": "Gemini",
         }
-
 
     except Exception as error:
+        if _is_rate_limit_error(error):
+            reason = "Gemini API quota/rate limit exceeded."
+        else:
+            reason = f"Gemini API error: {error}"
 
-        error_message = str(
-            error
-        )
-
-        # ----------------------------------------------------
-        # HANDLE QUOTA ERROR
-        # ----------------------------------------------------
-
-        if (
-            "429" in error_message
-            or "RESOURCE_EXHAUSTED"
-            in error_message
-            or "quota"
-            in error_message.lower()
-            or "rate limit"
-            in error_message.lower()
-        ):
-
-            return generate_fallback_response(
-                emergency_data,
-                "Gemini API quota/rate limit exceeded."
-            )
+        return generate_fallback_response(emergency_data, reason)
 
 
-        # ----------------------------------------------------
-        # HANDLE OTHER API ERRORS
-        # ----------------------------------------------------
+# ---------------------------------------------------------------------------
+# Groq Vision fallback
+# ---------------------------------------------------------------------------
 
-        return generate_fallback_response(
-            emergency_data,
-            f"Gemini API error: {error_message}"
-        )
 
-# ============================================================
-# GEMINI EMERGENCY IMAGE ANALYSIS
-# ============================================================
-
-def analyze_emergency_image_with_groq(
-    image_path,
-    prompt
-):
-    """
-    Analyze an emergency image using Groq Vision.
-
-    Returns the same JSON-compatible structure used by
-    the existing emergency image workflow.
-    """
-
+def analyze_emergency_image_with_groq(image_path, prompt):
+    """Analyze an emergency image with Groq Vision as a fallback provider."""
     if not GROQ_API_KEY:
-
         return {
             "success": False,
-            "error": "GROQ_API_KEY is missing from .env."
+            "error": "GROQ_API_KEY is missing from the environment.",
+            "error_type": "missing_api_key",
         }
-
 
     image_path = Path(image_path)
-
-    if not image_path.exists():
-
+    if not image_path.is_file():
         return {
             "success": False,
-            "error": f"Image file not found: {image_path}"
+            "error": f"Image file not found: {image_path}",
+            "error_type": "missing_file",
         }
 
+    mime_types = {
+        ".jpg": "image/jpeg",
+        ".jpeg": "image/jpeg",
+        ".png": "image/png",
+        ".webp": "image/webp",
+    }
+    mime_type = mime_types.get(image_path.suffix.lower())
+    if mime_type is None:
+        return {
+            "success": False,
+            "error": "Unsupported image type. Use JPG, JPEG, PNG, or WEBP.",
+            "error_type": "unsupported_image_type",
+        }
 
     try:
+        image_bytes = image_path.read_bytes()
+        image_base64 = base64.b64encode(image_bytes).decode("ascii")
 
-        # ----------------------------------------------------
-        # READ IMAGE
-        # ----------------------------------------------------
-
-        with open(
-            image_path,
-            "rb"
-        ) as image_file:
-
-            image_bytes = image_file.read()
-
-
-        # ----------------------------------------------------
-        # CONVERT IMAGE TO BASE64
-        # ----------------------------------------------------
-
-        image_base64 = base64.b64encode(
-            image_bytes
-        ).decode("utf-8")
-
-
-        # ----------------------------------------------------
-        # DETECT IMAGE MIME TYPE
-        # ----------------------------------------------------
-
-        suffix = image_path.suffix.lower()
-
-        mime_types = {
-            ".jpg": "image/jpeg",
-            ".jpeg": "image/jpeg",
-            ".png": "image/png",
-            ".webp": "image/webp"
-        }
-
-        mime_type = mime_types.get(
-            suffix,
-            "image/jpeg"
-        )
-
-
-        # ----------------------------------------------------
-        # CREATE GROQ CLIENT
-        # ----------------------------------------------------
-
-        client = Groq(
-            api_key=GROQ_API_KEY
-        )
-
-
-        # ----------------------------------------------------
-        # GROQ VISION REQUEST
-        # ----------------------------------------------------
-
+        client = Groq(api_key=GROQ_API_KEY)
         response = client.chat.completions.create(
-
             model="qwen/qwen3.8-27b",
-
             messages=[
-
                 {
                     "role": "user",
-
                     "content": [
-
-                        {
-                            "type": "text",
-                            "text": prompt
-                        },
-
+                        {"type": "text", "text": prompt},
                         {
                             "type": "image_url",
-
                             "image_url": {
-                                "url": (
-                                    f"data:{mime_type};base64,"
-                                    f"{image_base64}"
-                                )
-                            }
-                        }
-
-                    ]
+                                "url": f"data:{mime_type};base64,{image_base64}"
+                            },
+                        },
+                    ],
                 }
-
             ],
-
-            temperature=0
+            temperature=0,
+            # The free/on-demand OTPM limit in the reported error is 1,000.
+            # Keep each response budget well below that per-request ceiling.
+            max_completion_tokens=512,
+            reasoning_effort="none",
+            response_format={"type": "json_object"},
         )
-
-
-        # ----------------------------------------------------
-        # READ RESPONSE
-        # ----------------------------------------------------
 
         if not response.choices:
-
             return {
                 "success": False,
-                "error": "Groq Vision returned no choices."
+                "error": "Groq Vision returned no choices.",
+                "error_type": "empty_response",
             }
 
-
-        response_text = (
-            response.choices[0]
-            .message
-            .content
-        )
-
+        response_text = response.choices[0].message.content
         if not response_text:
-
             return {
                 "success": False,
-                "error": "Groq Vision returned an empty response."
+                "error": "Groq Vision returned an empty response.",
+                "error_type": "empty_response",
             }
-
-        response_text = response_text.strip()
-
-
-        # ----------------------------------------------------
-        # REMOVE MARKDOWN JSON CODE FENCES
-        # ----------------------------------------------------
-
-        if response_text.startswith("```"):
-
-            response_text = response_text.replace(
-                "```json",
-                "",
-                1
-            )
-
-            response_text = response_text.replace(
-                "```",
-                "",
-                1
-            )
-
-            response_text = response_text.strip()
-
-
-        # ----------------------------------------------------
-        # PARSE JSON
-        # ----------------------------------------------------
 
         try:
-
-            analysis_data = json.loads(
-                response_text
-            )
-
-        except json.JSONDecodeError as parse_error:
-
+            analysis_data = _parse_json_object(response_text, "Groq Vision")
+        except ValueError as exc:
             return {
                 "success": False,
-                "error": (
-                    "Groq Vision returned invalid JSON: "
-                    f"{str(parse_error)}"
-                ),
-                "raw_response": response_text
+                "error": str(exc),
+                "raw_response": response_text,
+                "error_type": "invalid_response",
             }
-
-
-                # ----------------------------------------------------
-        # VALIDATE REQUIRED FIELDS
-        # ----------------------------------------------------
 
         required_fields = [
             "incident_type",
@@ -587,232 +372,123 @@ def analyze_emergency_image_with_groq(
             "vehicles_detected",
             "visible_hazards",
             "description",
-            "confidence"
+            "confidence",
         ]
-
-        if not isinstance(analysis_data, dict):
-            return {
-                "success": False,
-                "error": "Invalid JSON response: expected a JSON object.",
-                "raw_response": response_text
-            }
-
-        missing_fields = [
-            field
-            for field in required_fields
-            if field not in analysis_data
-        ]
-
-        if missing_fields:
+        missing = _missing_fields(analysis_data, required_fields)
+        if missing:
             return {
                 "success": False,
                 "error": (
                     "Missing fields in Groq response: "
-                    + ", ".join(missing_fields)
+                    + ", ".join(missing)
                 ),
-                "raw_response": response_text
+                "raw_response": response_text,
+                "error_type": "incomplete_response",
             }
-
-        print(
-            "Groq Vision analysis succeeded."
-        )
 
         return {
             "success": True,
             "analysis": analysis_data,
-            "provider": "Groq"
+            "provider": "Groq",
         }
 
     except Exception as error:
+        if _is_rate_limit_error(error):
+            error_type = "rate_limit_error"
+        else:
+            error_type = "api_error"
+
         return {
             "success": False,
-            "error": (
-                f"Groq Vision API error: {str(error)}"
-            ),
-            "error_type": "api_error"
+            "error": f"Groq Vision API error: {error}",
+            "error_type": error_type,
         }
 
 
-def analyze_emergency_image(
-    image_path
-):
-    """
-    Analyze an emergency image.
+# ---------------------------------------------------------------------------
+# Primary image analysis: Gemini, then Groq fallback
+# ---------------------------------------------------------------------------
 
-    Primary provider:
-        Gemini Vision
 
-    Fallback provider:
-        Groq Vision
-
-    The function keeps the existing response structure so
-    the dashboard can continue using the same result.
-    """
-
-    # --------------------------------------------------------
-    # CHECK IMAGE FILE
-    # --------------------------------------------------------
-
+def analyze_emergency_image(image_path):
+    """Analyze an uploaded image using Gemini first and Groq as fallback."""
     image_path = Path(image_path)
-
-    if not image_path.exists():
-
+    if not image_path.is_file():
         return {
             "success": False,
-            "error": f"Image file not found: {image_path}"
+            "error": f"Image file not found: {image_path}",
+            "error_type": "missing_file",
         }
-
-
-    # --------------------------------------------------------
-    # CREATE COMMON VISION PROMPT
-    # --------------------------------------------------------
 
     prompt = """
 You are an AI Emergency Image Analysis Assistant.
+Analyze the uploaded emergency image carefully. Identify only information
+that can reasonably be observed from the image.
 
-Analyze the uploaded emergency image carefully.
-
-Identify only information that can reasonably be observed
-from the image.
-
-Return ONLY valid JSON.
-
-Use exactly this structure:
-
+Return ONLY a valid JSON object with these fields:
 {
-    "incident_type": "Road Accident",
-    "severity": "High",
-    "possible_victims": 2,
-    "vehicles_detected": 3,
-    "visible_hazards": [
-        "Damaged vehicle",
-        "Road obstruction"
-    ],
-    "description": "Brief description of the visible emergency.",
-    "confidence": 85
+  "incident_type": "Road Accident",
+  "severity": "High",
+  "possible_victims": 2,
+  "vehicles_detected": 3,
+  "visible_hazards": ["Damaged vehicle", "Road obstruction"],
+  "description": "Brief description of the visible emergency.",
+  "confidence": 85
 }
 
 Rules:
-
 1. Do not invent information.
-
-2. For possible_victims, estimate only people who may actually be
-   victims of the emergency.
-
-3. Do NOT count police officers, rescuers, or ordinary bystanders
-   as victims unless there is visible evidence that they are injured.
-
-4. If a victim cannot be reliably identified from the image, use 0.
-
-5. possible_victims must always be a numeric integer.
-
-6. severity must be one of:
-   Low, Medium, High, Critical, Unknown.
-
-7. vehicles_detected must be an estimated visible count.
-
-8. confidence must be a number between 0 and 100.
-
-9. visible_hazards must be a JSON list.
-
-10. Keep description concise.
-
-11. Return ONLY JSON.
-
-12. Do not use Markdown code fences.
+2. Estimate possible_victims only from people who may actually be victims.
+3. Do not count police, rescuers, or bystanders as victims unless there is
+   visible evidence that they are injured.
+4. If victims cannot be reliably identified, use 0.
+5. possible_victims and vehicles_detected must be numeric integers.
+6. severity must be Low, Medium, High, Critical, or Unknown.
+7. confidence must be a number from 0 to 100.
+8. visible_hazards must be a JSON list of short strings.
+9. Keep description concise.
+10. Return only JSON, without Markdown code fences.
 """
 
-
-    # --------------------------------------------------------
-    # TRY GEMINI FIRST
-    # --------------------------------------------------------
+    gemini_errors = []
 
     if GEMINI_API_KEY:
-
+        client = None
         try:
+            client = genai.Client(api_key=GEMINI_API_KEY)
+            uploaded_file = client.files.upload(file=image_path)
 
-            client = genai.Client(
-                api_key=GEMINI_API_KEY
-            )
-
-
-            # ------------------------------------------------
-            # UPLOAD IMAGE
-            # ------------------------------------------------
-
-            uploaded_file = client.files.upload(
-                file=image_path
-            )
-
-
-            # ------------------------------------------------
-            # GEMINI MODEL FALLBACK
-            # ------------------------------------------------
-
-            models_to_try = [
-                "gemini-3.8-flash",
-                "gemini-3.7-flash"
-            ]
-
+            # Try both configured Gemini model IDs. Record errors so the
+            # final UI message shows why Gemini failed, not only Groq's error.
+            models_to_try = ["gemini-3.8-flash", "gemini-3.7-flash"]
 
             for model_name in models_to_try:
-
                 try:
-
                     response = client.models.generate_content(
-
                         model=model_name,
-
-                        contents=[
-                            uploaded_file,
-                            prompt
-                        ]
-
+                        contents=[uploaded_file, prompt],
+                        config=types.GenerateContentConfig(
+                            response_mime_type="application/json",
+                            max_output_tokens=512,
+                            temperature=0,
+                        ),
                     )
 
-
-                    if not getattr(
-                        response,
-                        "text",
-                        None
-                    ):
-
-                        print(
-                            f"Gemini Vision {model_name} "
-                            "returned an empty response."
+                    response_text = getattr(response, "text", None)
+                    if not response_text:
+                        gemini_errors.append(
+                            f"{model_name}: empty response"
                         )
-
                         continue
-
-
-                    response_text = (
-                        response.text.strip()
-                    )
-
-
-                    # ----------------------------------------
-                    # PARSE GEMINI JSON
-                    # ----------------------------------------
 
                     try:
-
-                        analysis_data = json.loads(
-                            response_text
+                        analysis_data = _parse_json_object(
+                            response_text,
+                            f"Gemini Vision ({model_name})",
                         )
-
-                    except json.JSONDecodeError as parse_error:
-
-                        print(
-                            f"Gemini Vision {model_name} "
-                            f"returned invalid JSON: {parse_error}"
-                        )
-
+                    except ValueError as exc:
+                        gemini_errors.append(str(exc))
                         continue
-
-
-                                        # ----------------------------------------
-                    # VALIDATE GEMINI FIELDS
-                    # ----------------------------------------
 
                     required_fields = [
                         "incident_type",
@@ -821,183 +497,79 @@ Rules:
                         "vehicles_detected",
                         "visible_hazards",
                         "description",
-                        "confidence"
+                        "confidence",
                     ]
-
-                    if not isinstance(analysis_data, dict):
-                        print(
-                            f"Gemini Vision {model_name} "
-                            "returned invalid JSON: "
-                            "expected a JSON object."
+                    missing = _missing_fields(analysis_data, required_fields)
+                    if missing:
+                        gemini_errors.append(
+                            f"{model_name}: missing fields: "
+                            + ", ".join(missing)
                         )
                         continue
-
-                    missing_fields = [
-                        field
-                        for field in required_fields
-                        if field not in analysis_data
-                    ]
-
-                    if missing_fields:
-                        print(
-                            f"Gemini Vision {model_name} "
-                            "missing fields: "
-                            + ", ".join(missing_fields)
-                        )
-                        continue
-
-                    print(
-                        "Gemini Vision analysis succeeded "
-                        f"with {model_name}."
-                    )
 
                     return {
                         "success": True,
                         "analysis": analysis_data,
-                        "provider": "Gemini"
+                        "provider": "Gemini",
                     }
 
                 except Exception as error:
-                    error_message = str(error)
-
-                    is_quota_error = (
-                        "429" in error_message
-                        or "RESOURCE_EXHAUSTED" in error_message
-                        or "quota" in error_message.lower()
-                        or "rate limit" in error_message.lower()
-                    )
-
-                    is_temporary_error = (
-                        "503" in error_message
-                        or "UNAVAILABLE" in error_message
-                        or "high demand" in error_message.lower()
-                    )
-
-                    if is_quota_error:
-                        print(
-                            f"Gemini Vision {model_name} "
-                            "quota/rate limit reached. "
-                            "Moving to fallback."
-                        )
-                        break
-
-                    if is_temporary_error:
-                        print(
-                            f"Gemini Vision {model_name} "
-                            "temporarily unavailable."
-                        )
-                        continue
-
-                    print(
-                        f"Gemini Vision {model_name} "
-                        f"error: {error_message}"
-                    )
-                    break
+                    gemini_errors.append(f"{model_name}: {error}")
+                    # Try the next Gemini model before falling back to Groq.
+                    continue
 
         except Exception as error:
-            print(
-                "Gemini Vision initialization/upload failed: "
-                f"{str(error)}"
-            )
+            gemini_errors.append(f"Gemini client/upload: {error}")
 
     else:
-        print(
-            "GEMINI_API_KEY is missing. "
-            "Skipping Gemini Vision."
-        )
+        gemini_errors.append("GEMINI_API_KEY is missing from the environment.")
 
-    # --------------------------------------------------------
-    # GEMINI FAILED -> GROQ FALLBACK
-    # --------------------------------------------------------
-    print(
-        "Using Groq Vision fallback."
-    )
-
-
-    groq_result = analyze_emergency_image_with_groq(
-        image_path,
-        prompt
-    )
-
-
+    # Gemini failed; try Groq Vision with a capped output-token budget.
+    groq_result = analyze_emergency_image_with_groq(image_path, prompt)
     if groq_result.get("success"):
-
         return groq_result
 
-
-    # --------------------------------------------------------
-    # BOTH PROVIDERS FAILED
-    # --------------------------------------------------------
+    gemini_error_text = " | ".join(gemini_errors) or "No Gemini error details available."
+    groq_error_text = groq_result.get("error", "Unknown Groq error.")
 
     return {
         "success": False,
         "error": (
             "Gemini Vision and Groq Vision both failed. "
-            f"Groq error: {groq_result.get('error', 'Unknown error')}"
+            f"Gemini details: {gemini_error_text}. "
+            f"Groq details: {groq_error_text}"
         ),
-        "error_type": "vision_providers_failed"
+        "error_type": (
+            "rate_limit_error"
+            if groq_result.get("error_type") == "rate_limit_error"
+            else "vision_providers_failed"
+        ),
+        "gemini_errors": gemini_errors,
+        "groq_error": groq_error_text,
     }
 
-# ============================================================
-# DIRECT TEST
-# ============================================================
+
+# ---------------------------------------------------------------------------
+# Direct smoke test for Gemini text recommendation
+# ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-
-    # Sample emergency data.
-    test_data = {
-
-        "incident_type":
-            "Road Accident",
-
-        "severity":
-            "Medium",
-
-        "predicted_demand":
-            1.0,
-
-        "ambulance":
-            "AMB-1042",
-
-        "ambulance_distance_km":
-            1.17,
-
-        "hospital":
-            "Sunrise Hospital",
-
-        "hospital_distance_km":
-            2.73,
-
-        "available_beds":
-            162,
-
-        "rescue_team":
-            "Rescue Team 27",
-
-        "rescue_team_type":
-            "Flood Rescue",
-
-        "rescue_team_distance_km":
-            3.2,
-
-        "route_distance_km":
-            1.43,
-
-        "estimated_travel_time_minutes":
-            1.71
+    sample_emergency_data = {
+        "incident_type": "Road Accident",
+        "severity": "Medium",
+        "predicted_demand": 1.0,
+        "ambulance": "AMB-1042",
+        "ambulance_distance_km": 1.17,
+        "hospital": "Sunrise Hospital",
+        "hospital_distance_km": 2.73,
+        "available_beds": 162,
+        "rescue_team": "Rescue Team 27",
+        "rescue_team_type": "Flood Rescue",
+        "rescue_team_distance_km": 3.2,
+        "route_distance_km": 1.43,
+        "estimated_travel_time_minutes": 1.71,
     }
 
-
-    # Generate recommendation.
-    result = generate_emergency_response(
-        test_data
-    )
-
-
-    print(
-        "\n===== Gemini Emergency Recommendation ====="
-    )
-
-    print(
-        result
-    )
+    recommendation = generate_emergency_response(sample_emergency_data)
+    print("\n===== Gemini Emergency Recommendation =====")
+    print(recommendation)
